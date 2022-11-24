@@ -25,7 +25,7 @@ const ProductCategory = () => {
         {categories?.map((category) => (
           <Link
             to={`/category/${category._id}`}
-            className="bg-[#006d77] text-white shadow-md text-center py-2 rounded-lg"
+            className="bg-white shadow-md text-center py-2 rounded-lg"
             key={category._id}
           >
             {category.brand}

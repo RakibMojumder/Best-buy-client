@@ -1,18 +1,69 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { FaGithub, FaGoogle, FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../contexts/AuthProvider";
+import saveUserAndGetToken from "../Hooks/saveUserAndGetToken";
 
 const Login = () => {
   const { register, handleSubmit } = useForm();
   const [passwordEye, setPasswordEye] = useState(true);
+  const { googleLogIn, logIn } = useContext(AuthContext);
+  const [authError, setAuthError] = useState("");
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location?.state?.from.pathname || "/";
 
   const onSubmit = (data) => {
     console.log(data);
+    logIn(data.email, data.password)
+      .then((result) => {
+        console.log(result.user);
+        setAuthError("");
+        saveUserAndGetToken(result?.user)
+          .then((res) => {
+            if (res.token) {
+              localStorage.setItem("Best-buy-token", res.token);
+              navigate(from, { replace: true });
+              toast.success("Successfully log in");
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+        setAuthError(err.message);
+      });
+  };
+
+  const handleGoogleSignIn = () => {
+    googleLogIn()
+      .then((res) => {
+        setAuthError("");
+        console.log(res.user);
+        const user = {
+          email: res.user.email,
+          role: "User",
+        };
+        saveUserAndGetToken(user).then((res) => {
+          if (res.token) {
+            localStorage.setItem("Best-buy-token", res.token);
+            navigate(from, { replace: true });
+            toast.success("Login has been successful");
+          }
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        setAuthError(err.message);
+      });
   };
 
   return (
-    <div className="w-1/2 mx-auto mt-10 py-10 px-20 bg-[#006d77]">
+    <div className="w-1/2 mx-auto mt-10 py-10 px-20 bg-[#2b6777]">
       <h1 className="text-3xl font-bold my-5 text-center text-white">Log in</h1>
       <div className="">
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -42,11 +93,12 @@ const Login = () => {
                 className="absolute top-2 right-4"
               />
             )}
+            {authError && <p className="mt-1">{authError}</p>}
           </div>
           <div className="text-center mt-6">
             <button
               type="submit"
-              className="px-10 py-1 rounded-full bg-[#EFF5F5] mb-3"
+              className="px-14 py-1 rounded-full bg-[#EFF5F5] mb-3"
             >
               Log in
             </button>
@@ -66,7 +118,10 @@ const Login = () => {
           <div className="h-[1px] w-[23%] lg:w-[40%] bg-white"></div>
         </div>
         <div className="mt-5">
-          <button className="flex items-center justify-center bg-[#dc392d] rounded-md text-white w-60 mx-auto py-2 transition-all hover:bg-[#f5564b]">
+          <button
+            onClick={handleGoogleSignIn}
+            className="flex items-center justify-center bg-[#dc392d] rounded-md text-white w-60 mx-auto py-2 transition-all hover:bg-[#f5564b]"
+          >
             <FaGoogle className="inline-block mr-3 text-xl" />
             <span>Google</span>
           </button>

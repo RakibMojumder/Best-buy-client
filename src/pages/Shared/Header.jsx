@@ -1,7 +1,19 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useContext } from "react";
+import toast from "react-hot-toast";
+import { NavLink, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthProvider";
 
 const Header = () => {
+  const { user, logOut } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleLogIn = () => {
+    logOut().then(() => {
+      localStorage.removeItem("Best-buy-token");
+      navigate("/");
+      toast.success("you have been log out now");
+    });
+  };
   return (
     <header className="px-4">
       <div className="container flex justify-between h-16 mx-auto">
@@ -23,13 +35,13 @@ const Header = () => {
         </a>
         <ul className="items-stretch hidden space-x-3 md:flex">
           <li className="flex">
-            <a
+            <NavLink
               rel="noopener noreferrer"
-              href="/"
+              to="/"
               className="flex items-center px-4 dark:border-transparent"
             >
               Home
-            </a>
+            </NavLink>
           </li>
           <li className="flex">
             <NavLink
@@ -40,15 +52,30 @@ const Header = () => {
               Dashboard
             </NavLink>
           </li>
-          <li className="flex">
-            <NavLink
-              rel="noopener noreferrer"
-              to="/login"
-              className="flex items-center px-4 dark:border-transparent dark:text-violet-400 dark:border-violet-400"
-            >
-              Login
-            </NavLink>
-          </li>
+
+          {user ? (
+            <>
+              <li className="flex">
+                <button
+                  onClick={handleLogIn}
+                  rel="noopener noreferrer"
+                  className="flex items-center px-4 dark:border-transparent dark:text-violet-400 dark:border-violet-400"
+                >
+                  Logout
+                </button>
+              </li>
+            </>
+          ) : (
+            <li className="flex">
+              <NavLink
+                rel="noopener noreferrer"
+                to="/login"
+                className="flex items-center px-4 dark:border-transparent dark:text-violet-400 dark:border-violet-400"
+              >
+                Login
+              </NavLink>
+            </li>
+          )}
         </ul>
         <button className="flex justify-end p-4 md:hidden">
           <svg
