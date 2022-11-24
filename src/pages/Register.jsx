@@ -2,12 +2,13 @@ import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { FaGithub, FaGoogle, FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthProvider";
 import saveUserAndGetToken from "../Hooks/saveUserAndGetToken";
 
 const Register = () => {
   const [passwordEye, setPasswordEye] = useState(true);
+  const navigate = useNavigate();
   const { createUser, updateUserProfile, googleLogIn } =
     useContext(AuthContext);
   const [authError, setAuthError] = useState("");
@@ -17,31 +18,53 @@ const Register = () => {
     formState: { errors },
   } = useForm();
 
+  // Handle Register
   const onSubmit = (data) => {
-    console.log(data);
-    createUser(data.email, data.password)
-      .then((result) => {
-        console.log(result.user);
-        setAuthError("");
-        updateUserProfile({ displayName: data.name })
-          .then(() => {
-            const user = {
-              email: result?.user.email,
-              role: data.userRole,
-            };
-            saveUserAndGetToken(user).then((res) => {
-              if (res.token) {
-                localStorage.setItem("Best-buy-token", res.token);
-                toast.success("Sign up has been successful");
-              }
+    const image = data.img[0];
+    const formData = new FormData();
+    formData.append("image", image);
+
+    fetch(
+      "https://api.imgbb.com/1/upload?key=e24f3abe38ed1ea9b6db4741d69cf66c",
+      {
+        method: "POST",
+        body: formData,
+      }
+    )
+      .then((res) => res.json())
+      .then((imgData) => {
+        if (imgData.success) {
+          createUser(data.email, data.password)
+            .then((result) => {
+              console.log(result.user);
+              setAuthError("");
+              const profile = {
+                displayName: data.name,
+                photoURL: imgData.data.url,
+              };
+              updateUserProfile(profile)
+                .then(() => {
+                  const user = {
+                    email: result?.user.email,
+                    role: data.userRole,
+                  };
+                  saveUserAndGetToken(user).then((res) => {
+                    if (res.token) {
+                      localStorage.setItem("Best-buy-token", res.token);
+                      navigate("/");
+                      toast.success("Sign up has been successful");
+                    }
+                  });
+                })
+                .catch((error) => console.log(error));
+            })
+            .catch((err) => {
+              console.log(err);
+              setAuthError(err.message);
             });
-          })
-          .catch((error) => console.log(error));
+        }
       })
-      .catch((err) => {
-        console.log(err);
-        setAuthError(err.message);
-      });
+      .catch((e) => console.log(e));
   };
 
   // Google Log in
@@ -57,6 +80,7 @@ const Register = () => {
         saveUserAndGetToken(user).then((res) => {
           if (res.token) {
             localStorage.setItem("Best-buy-token", res.token);
+            navigate("/");
             toast.success("Sign up has been successful");
           }
         });
@@ -103,6 +127,16 @@ const Register = () => {
               </option>
               <option value="Seller">Seller</option>
             </select>
+          </div>
+          <div className="input-filed-img mb-6">
+            <input
+              className="text-white"
+              type="file"
+              {...register("img", { required: "img is required" })}
+            />
+            {errors?.img && (
+              <p className="text-white text-sm">{errors?.img.message}</p>
+            )}
           </div>
           <div className="input-field relative mb-6">
             <input
