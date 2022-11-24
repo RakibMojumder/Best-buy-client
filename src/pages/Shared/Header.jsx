@@ -1,10 +1,7 @@
-import React, { useContext } from "react";
-import { ThemeContext } from "../../contexts/ThemeProvider";
-import { FaMoon, FaSun } from "react-icons/fa";
+import React from "react";
 import { NavLink } from "react-router-dom";
 
 const Header = () => {
-  const { toggleTheme, theme } = useContext(ThemeContext);
   return (
     <header className="px-4">
       <div className="container flex justify-between h-16 mx-auto">
@@ -35,34 +32,21 @@ const Header = () => {
             </a>
           </li>
           <li className="flex">
-            <a
+            <NavLink
               rel="noopener noreferrer"
-              href="/"
+              to="/dashboard"
               className="flex items-center px-4 dark:border-transparent"
             >
               Dashboard
-            </a>
-          </li>
-          <li className="flex">
-            <a
-              rel="noopener noreferrer"
-              href="/"
-              className="flex items-center px-4 dark:border-transparent dark:text-violet-400 dark:border-violet-400"
-            >
-              Login
-            </a>
+            </NavLink>
           </li>
           <li className="flex">
             <NavLink
               rel="noopener noreferrer"
-              to="/"
-              className="flex items-center px-4 dark:border-transparent"
+              to="/login"
+              className="flex items-center px-4 dark:border-transparent dark:text-violet-400 dark:border-violet-400"
             >
-              {theme ? (
-                <FaSun onClick={toggleTheme} />
-              ) : (
-                <FaMoon onClick={toggleTheme} />
-              )}
+              Login
             </NavLink>
           </li>
         </ul>

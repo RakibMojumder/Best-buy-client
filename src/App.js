@@ -8,7 +8,7 @@ const queryClient = new QueryClient();
 
 function App() {
   return (
-    <div className='dark:bg-gray-800 dark:text-slate-50'>
+    <div className='bg-[#a8dadc]'>
       <div className='w-[80%] mx-auto'>
         <QueryClientProvider client={queryClient}>
           <RouterProvider router={router}></RouterProvider>

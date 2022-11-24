@@ -21,11 +21,11 @@ const ProductCategory = () => {
       <h1 className="text-3xl text-center my-3 font-bold">
         Select The Category
       </h1>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4``11 gap-5">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
         {categories?.map((category) => (
           <Link
             to={`/category/${category._id}`}
-            className="bg-slate-100 text-black text-center py-2 rounded-lg"
+            className="bg-[#006d77] text-white shadow-md text-center py-2 rounded-lg"
             key={category._id}
           >
             {category.brand}
