@@ -122,10 +122,10 @@ const Register = () => {
           </div>
           <div className="input-filed mb-6">
             <select className="w-full py-1.5 px-4" {...register("userRole")}>
-              <option value="User" defaultValue="User">
-                User
+              <option value="user" defaultValue="user">
+                user
               </option>
-              <option value="Seller">Seller</option>
+              <option value="seller">seller</option>
             </select>
           </div>
           <div className="input-filed-img mb-6">
