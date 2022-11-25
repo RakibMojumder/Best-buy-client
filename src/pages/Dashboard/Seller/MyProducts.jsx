@@ -12,14 +12,69 @@ const MyProducts = () => {
       const res = await axios.get(
         `http://localhost:5000/myProducts?email=${user?.email}`
       );
-      console.log(res.data.data);
       return res.data.data;
     }
   );
 
+  if (isLoading) {
+    return;
+  }
+
   return (
-    <div>
-      <h1>MY products</h1>
+    <div className="overflow-hidden overflow-x-auto rounded-lg border border-gray-200">
+      <table className="min-w-full divide-y divide-gray-200 text-sm">
+        <thead className="bg-gray-100">
+          <tr>
+            <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
+              Image
+            </th>
+            <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
+              Name
+            </th>
+            <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
+              Status
+            </th>
+            <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
+              Price
+            </th>
+            <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
+              Action
+            </th>
+          </tr>
+        </thead>
+
+        <tbody className="divide-y divide-gray-200">
+          {myProducts.map((product) => (
+            <tr key={product._id}>
+              <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                <img
+                  className="h-12 w-12 rounded-full"
+                  src={product.img}
+                  alt=""
+                />
+              </td>
+              <td className="whitespace-nowrap px-4 py-2 text-gray-800 font-semibold">
+                {product.name}
+              </td>
+              <td className="whitespace-nowrap px-4 py-2 text-gray-800 font-semibold">
+                {product.status === "sold"
+                  ? "Sold"
+                  : product.status === "booked"
+                  ? "Booked"
+                  : "Not booked yet"}
+              </td>
+              <td className="whitespace-nowrap px-4 py-2 text-gray-800">
+                ${product.resalePrice}
+              </td>
+              <td className="whitespace-nowrap px-4 py-2 text-gray-800">
+                <button className="px-5 py-1 bg-red-100 text-red-500">
+                  Remove
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

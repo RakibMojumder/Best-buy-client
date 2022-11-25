@@ -50,7 +50,7 @@ const ProductCart = ({ product, openModal, setBooking }) => {
             product.status === "sold" ? "bg-red-200" : ""
           } w-full bg-[#296218] text-white py-2 rounded-md`}
         >
-          Book Now
+          {product.status === "sold" ? "Sold" : "Book Now"}
         </button>
         <button
           disabled={product?.status === "sold" && true}
