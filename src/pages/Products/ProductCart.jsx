@@ -21,6 +21,21 @@ const ProductCart = ({ product, openModal, setBooking }) => {
     openModal();
   };
 
+  // Handle my wish list
+  const handleWishList = (product) => {
+    fetch("http://localhost:5000/wishlist", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(product),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
+  };
+
   return (
     <div className="grid grid-cols-12 gap-8">
       <div className="col-span-3">
@@ -54,6 +69,7 @@ const ProductCart = ({ product, openModal, setBooking }) => {
         </button>
         <button
           disabled={product?.status === "sold" && true}
+          onClick={() => handleWishList(product)}
           className="w-full bg-[#d1bb2b] text-white py-2 rounded-md"
         >
           Add To Wishlist

@@ -17,6 +17,7 @@ import MyBuyers from "../pages/Dashboard/Seller/MyBuyers";
 import MyProducts from "../pages/Dashboard/Seller/MyProducts";
 import AdminRoute from "./AdminRoute";
 import MyOrders from "../pages/Dashboard/Buyer/MyOrders";
+import MyWishList from "../pages/Dashboard/Buyer/MyWishList";
 
 const router = createBrowserRouter([
     {
@@ -77,6 +78,10 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard/myOrders',
                 element: <MyOrders />
+            },
+            {
+                path: '/dashboard/wishlist',
+                element: <MyWishList />
             }
         ]
     }

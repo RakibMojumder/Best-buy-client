@@ -110,16 +110,28 @@ const Sidebar = () => {
               </li>
             </>
           ) : (
-            <li className="text-center mb-3">
-              <NavLink
-                to="/dashboard/myOrders"
-                className={({ isActive }) =>
-                  isActive ? "bg-lime-500 block py-2 text-center" : undefined
-                }
-              >
-                My orders
-              </NavLink>
-            </li>
+            <>
+              <li className="text-center mb-3">
+                <NavLink
+                  to="/dashboard/myOrders"
+                  className={({ isActive }) =>
+                    isActive ? "bg-lime-500 block py-2 text-center" : undefined
+                  }
+                >
+                  My orders
+                </NavLink>
+              </li>
+              <li className="text-center mb-3">
+                <NavLink
+                  to="/dashboard/wishlist"
+                  className={({ isActive }) =>
+                    isActive ? "bg-lime-500 block py-2 text-center" : undefined
+                  }
+                >
+                  My wishlist
+                </NavLink>
+              </li>
+            </>
           )}
         </ul>
       </div>
