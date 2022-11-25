@@ -67,9 +67,10 @@ const MyProducts = () => {
                 ${product.resalePrice}
               </td>
               <td className="whitespace-nowrap px-4 py-2 text-gray-800">
-                <button className="px-5 py-1 bg-red-100 text-red-500">
+                <button className="px-3 bg-red-100 text-red-500 mr-3">
                   Remove
                 </button>
+                <button className="px-4 bg-blue-100 text-blue-500">Ads</button>
               </td>
             </tr>
           ))}
