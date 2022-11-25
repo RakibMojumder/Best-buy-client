@@ -73,7 +73,8 @@ const CheckoutForm = ({ bookedOrder, refetch, closeModal }) => {
                 sellerEmail: bookedOrder.sellerEmail,
                 customerEmail: bookedOrder.customerEmail,
                 transactionId: paymentIntent.id,
-                bookingId: bookedOrder._id
+                bookingId: bookedOrder._id,
+                productId: bookedOrder.productId
             }
             console.log(payment)
 

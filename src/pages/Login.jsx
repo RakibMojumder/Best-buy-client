@@ -16,7 +16,6 @@ const Login = () => {
   const from = location?.state?.from.pathname || "/";
 
   const onSubmit = (data) => {
-    console.log(data);
     logIn(data.email, data.password)
       .then((result) => {
         console.log(result.user);

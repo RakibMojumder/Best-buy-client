@@ -41,14 +41,21 @@ const ProductCart = ({ product, openModal, setBooking }) => {
       <div className="col-span-3 space-y-2 border p-3">
         <p>Original price: {originalPrice}</p>
         <p>Resale price: {resalePrice}</p>
+        {product?.status === "sold" && <p>Sold</p>}
         <button
           type="button"
           onClick={handleBooking}
-          className="w-full bg-[#296218] text-white py-2 rounded-md"
+          disabled={product?.status === "sold" && true}
+          className={`${
+            product.status === "sold" ? "bg-red-200" : ""
+          } w-full bg-[#296218] text-white py-2 rounded-md`}
         >
           Book Now
         </button>
-        <button className="w-full bg-[#d1bb2b] text-white py-2 rounded-md">
+        <button
+          disabled={product?.status === "sold" && true}
+          className="w-full bg-[#d1bb2b] text-white py-2 rounded-md"
+        >
           Add To Wishlist
         </button>
       </div>
