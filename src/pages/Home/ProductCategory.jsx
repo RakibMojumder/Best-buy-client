@@ -24,7 +24,7 @@ const ProductCategory = () => {
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
         {categories?.map((category) => (
           <Link
-            to={`/category/${category._id}`}
+            to={`/category/${category.brand}`}
             className="bg-white shadow-md text-center py-2 rounded-lg"
             key={category._id}
           >

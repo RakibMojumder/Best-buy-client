@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../contexts/AuthProvider";
 import getStoredUser from "../../Hooks/getStoredUser";
-import AddProduct from "./AddProduct";
-import AllSellers from "./AllSellers";
-import MyOrders from "./MyOrders";
+import HashLoader from "react-spinners/ClipLoader";
+import AllSellers from "./Admin/AllSellers";
+import MyOrders from "./Buyer/MyOrders";
+import AddProduct from "./Seller/AddProduct";
 
 const Dashboard = () => {
   const { user } = useContext(AuthContext);
@@ -19,14 +20,24 @@ const Dashboard = () => {
   }, [user]);
 
   if (loading) {
-    return <h1>Loading....</h1>;
+    return (
+      <div className="min-h-screen flex justify-center items-center">
+        <HashLoader
+          color="red"
+          loading={loading}
+          size={150}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+        />
+      </div>
+    );
   }
 
   if (storedUser.role === "admin") {
     return <AllSellers />;
   }
 
-  if (storedUser.role === "sellers") {
+  if (storedUser.role === "seller") {
     return <AddProduct />;
   }
 

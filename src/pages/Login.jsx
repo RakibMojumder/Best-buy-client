@@ -39,20 +39,23 @@ const Login = () => {
       });
   };
 
+  // Google Log in
   const handleGoogleSignIn = () => {
     googleLogIn()
       .then((res) => {
         setAuthError("");
         console.log(res.user);
         const user = {
+          name: res.user.displayName,
           email: res.user.email,
-          role: "User",
+          role: "user",
+          userImg: res?.user?.photoURL,
         };
         saveUserAndGetToken(user).then((res) => {
           if (res.token) {
             localStorage.setItem("Best-buy-token", res.token);
             navigate(from, { replace: true });
-            toast.success("Login has been successful");
+            toast.success("Successfully log in");
           }
         });
       })

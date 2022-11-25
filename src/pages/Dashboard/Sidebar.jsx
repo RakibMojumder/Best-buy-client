@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider";
 import getStoredUser from "../../Hooks/getStoredUser";
 
@@ -16,14 +16,12 @@ const Sidebar = () => {
     });
   }, [user]);
 
-  console.log(storedUser);
-
   if (loading) {
     return <h1>Loading...</h1>;
   }
 
   return (
-    <div className="h-full p-3 space-y-2 w-60 bg-gray-900 text-gray-100">
+    <div className="h-full p-3 space-y-2 w-60 min-h-full bg-gray-900 text-gray-100">
       <div className="flex items-center p-2 space-x-4">
         <img
           src={user?.photoURL}
@@ -47,31 +45,80 @@ const Sidebar = () => {
         <ul className="pt-2 pb-4 space-y-1 text-sm">
           {storedUser?.role === "admin" ? (
             <>
-              <li>
-                <Link to="/allSellers">All Sellers</Link>
+              <li className="text-center mb-3">
+                <NavLink
+                  to="/dashboard/allSellers"
+                  className={({ isActive }) =>
+                    isActive ? "bg-lime-500 block py-2 text-center" : undefined
+                  }
+                >
+                  All Sellers
+                </NavLink>
               </li>
-              <li>
-                <Link to="/allUsers">All Users</Link>
+              <li className="text-center mb-3">
+                <NavLink
+                  to="/dashboard/allBuyers"
+                  className={({ isActive }) =>
+                    isActive ? "bg-lime-500 block py-2 text-center" : undefined
+                  }
+                >
+                  All Buyers
+                </NavLink>
               </li>
-              <li>
-                <Link to="/reportedItem">Reported Item</Link>
+              <li className="text-center">
+                <NavLink
+                  to="/dashboard/reportedItem"
+                  className={({ isActive }) =>
+                    isActive ? "bg-lime-500 block py-2 text-center" : undefined
+                  }
+                >
+                  Reported Item
+                </NavLink>
               </li>
             </>
           ) : storedUser.role === "seller" ? (
             <>
-              <li>
-                <Link to="/addProduct">Add A Product</Link>
+              <li className="text-center mb-3">
+                <NavLink
+                  to="/dashboard/addProduct"
+                  className={({ isActive }) =>
+                    isActive ? "bg-lime-500 block py-2 text-center" : undefined
+                  }
+                >
+                  Add A Product
+                </NavLink>
               </li>
-              <li>
-                <Link to="/myProducts">My Products</Link>
+              <li className="text-center mb-3">
+                <NavLink
+                  to="/dashboard/myProducts"
+                  className={({ isActive }) =>
+                    isActive ? "bg-lime-500 block py-2 text-center" : undefined
+                  }
+                >
+                  My Products
+                </NavLink>
               </li>
-              <li>
-                <Link to="/myByers">My Byers</Link>
+              <li className="text-center mb-3">
+                <NavLink
+                  to="/dashboard/myBuyers"
+                  className={({ isActive }) =>
+                    isActive ? "bg-lime-500 block py-2 text-center" : undefined
+                  }
+                >
+                  My Buyers
+                </NavLink>
               </li>
             </>
           ) : (
-            <li>
-              <Link to="/myOrders">My orders</Link>
+            <li className="text-center mb-3">
+              <NavLink
+                to="/dashboard/myOrders"
+                className={({ isActive }) =>
+                  isActive ? "bg-lime-500 block py-2 text-center" : undefined
+                }
+              >
+                My orders
+              </NavLink>
             </li>
           )}
         </ul>

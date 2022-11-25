@@ -1,6 +1,6 @@
 import React from "react";
 
-const ProductCart = ({ product }) => {
+const ProductCart = ({ product, openModal, setBooking }) => {
   const {
     _id,
     img,
@@ -15,6 +15,11 @@ const ProductCart = ({ product }) => {
     sellersName,
     usedTime,
   } = product;
+
+  const handleBooking = () => {
+    setBooking(product);
+    openModal();
+  };
 
   return (
     <div className="grid grid-cols-12 gap-8">
@@ -36,7 +41,11 @@ const ProductCart = ({ product }) => {
       <div className="col-span-3 space-y-2 border p-3">
         <p>Original price: {originalPrice}</p>
         <p>Resale price: {resalePrice}</p>
-        <button className="w-full bg-[#2b6777] text-white py-2 rounded-md">
+        <button
+          type="button"
+          onClick={handleBooking}
+          className="w-full bg-[#296218] text-white py-2 rounded-md"
+        >
           Book Now
         </button>
         <button className="w-full bg-[#d1bb2b] text-white py-2 rounded-md">

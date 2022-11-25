@@ -10,7 +10,7 @@ const Header = () => {
   const handleLogIn = () => {
     logOut().then(() => {
       localStorage.removeItem("Best-buy-token");
-      navigate("/");
+      navigate("/login");
       toast.success("you have been log out now");
     });
   };

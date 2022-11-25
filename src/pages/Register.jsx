@@ -25,7 +25,7 @@ const Register = () => {
     formData.append("image", image);
 
     fetch(
-      "https://api.imgbb.com/1/upload?key=e24f3abe38ed1ea9b6db4741d69cf66c",
+      `https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_imgbb_API_KEY}`,
       {
         method: "POST",
         body: formData,
@@ -45,8 +45,10 @@ const Register = () => {
               updateUserProfile(profile)
                 .then(() => {
                   const user = {
+                    name: data.name,
                     email: result?.user.email,
                     role: data.userRole,
+                    userImg: imgData.data.url,
                   };
                   saveUserAndGetToken(user).then((res) => {
                     if (res.token) {
@@ -74,8 +76,10 @@ const Register = () => {
         setAuthError("");
         console.log(res.user);
         const user = {
+          name: res.user.displayName,
           email: res.user.email,
-          role: "User",
+          role: "user",
+          userImg: res?.user?.photoURL,
         };
         saveUserAndGetToken(user).then((res) => {
           if (res.token) {
