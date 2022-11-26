@@ -37,7 +37,7 @@ const ProductCart = ({ product, openModal, setBooking }) => {
   };
 
   return (
-    <div className="grid grid-cols-12 gap-8">
+    <div className="grid grid-cols-12 gap-8 border mb-5">
       <div className="col-span-3">
         <img className="w-full h-full" src={img} alt="" />
       </div>
@@ -53,7 +53,7 @@ const ProductCart = ({ product, openModal, setBooking }) => {
           <p>Location: {location}</p>
         </div>
       </div>
-      <div className="col-span-3 space-y-2 border p-3">
+      <div className="col-span-3 space-y-2 p-3">
         <p>Original price: {originalPrice}</p>
         <p>Resale price: {resalePrice}</p>
         {product?.status === "sold" && <p>Sold</p>}

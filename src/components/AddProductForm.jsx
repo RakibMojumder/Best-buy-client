@@ -1,12 +1,14 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthProvider";
+import SmallSpinner from "./SmallSpinner";
 
 const AddProductForm = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -14,6 +16,7 @@ const AddProductForm = () => {
   } = useForm();
 
   const onSubmit = (data) => {
+    setLoading(true);
     const image = data.img[0];
     const formData = new FormData();
 
@@ -55,6 +58,7 @@ const AddProductForm = () => {
           })
             .then((res) => res.json())
             .then((data) => {
+              setLoading(false);
               toast.success("A product is added");
               navigate("/dashboard/myProducts");
             });
@@ -221,9 +225,9 @@ const AddProductForm = () => {
       </div>
       <button
         type="submit"
-        className="bg-green-600 w-full py-1 text-white rounded-md"
+        className="bg-green-600 w-full py-1 text-center text-white rounded-md"
       >
-        Submit
+        {loading ? <SmallSpinner /> : "Add product"}
       </button>
     </form>
   );

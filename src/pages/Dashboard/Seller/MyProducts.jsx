@@ -4,6 +4,7 @@ import React, { useContext, useState } from "react";
 import toast from "react-hot-toast";
 import ConfirmModal from "../../../components/ConfirmModal";
 import { AuthContext } from "../../../contexts/AuthProvider";
+import { FaCheck, FaCheckCircle } from "react-icons/fa";
 
 const MyProducts = () => {
   const { user } = useContext(AuthContext);
@@ -40,11 +41,27 @@ const MyProducts = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.success) {
           closeModal();
           refetch();
           toast.success("successfully deleted the product");
+        }
+      });
+  };
+
+  const handleAds = (product) => {
+    fetch(`http://localhost:5000/advertise`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(product),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          refetch();
+          toast.success(`Advertise ${product.name}`);
         }
       });
   };
@@ -102,7 +119,16 @@ const MyProducts = () => {
                 >
                   Remove
                 </button>
-                <button className="px-4 bg-blue-100 text-blue-500">Ads</button>
+                {product.advertise ? (
+                  <p className="bg-blue-100 text-blue-500 px-3 inline-block">
+                    Ads <FaCheck className="inline-block text-xs mb-1 ml-1" />{" "}
+                  </p>
+                ) : (
+                  <button
+                    onClick={() => handleAds(product)}
+                    className="px-4 bg-blue-100 text-blue-500"
+                  ></button>
+                )}
               </td>
             </tr>
           ))}

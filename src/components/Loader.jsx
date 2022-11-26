@@ -6,7 +6,7 @@ const Loader = ({ loading }) => {
     <HashLoader
       color="green"
       loading={loading}
-      size={150}
+      size={50}
       aria-label="Loading Spinner"
       data-testid="loader"
     />
