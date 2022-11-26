@@ -1,24 +1,53 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
+import toast from "react-hot-toast";
+import ConfirmModal from "../../../components/ConfirmModal";
 import { AuthContext } from "../../../contexts/AuthProvider";
 
 const MyProducts = () => {
   const { user } = useContext(AuthContext);
+  const [isOpen, setIsOpen] = useState(false);
+  const [productId, setProductId] = useState();
 
-  const { data: myProducts, isLoading } = useQuery(
-    ["myProducts", user?.email],
-    async () => {
-      const res = await axios.get(
-        `http://localhost:5000/myProducts?email=${user?.email}`
-      );
-      return res.data.data;
-    }
-  );
+  const {
+    data: myProducts,
+    isLoading,
+    refetch,
+  } = useQuery(["myProducts", user?.email], async () => {
+    const res = await axios.get(
+      `http://localhost:5000/myProducts?email=${user?.email}`
+    );
+    return res.data.data;
+  });
 
   if (isLoading) {
     return;
   }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  function openModal(id) {
+    setIsOpen(true);
+    setProductId(id);
+  }
+
+  const handleDeleteProduct = () => {
+    fetch(`http://localhost:5000/myProducts/${productId}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.success) {
+          closeModal();
+          refetch();
+          toast.success("successfully deleted the product");
+        }
+      });
+  };
 
   return (
     <div className="overflow-hidden overflow-x-auto rounded-lg border border-gray-200">
@@ -67,7 +96,10 @@ const MyProducts = () => {
                 ${product.resalePrice}
               </td>
               <td className="whitespace-nowrap px-4 py-2 text-gray-800">
-                <button className="px-3 bg-red-100 text-red-500 mr-3">
+                <button
+                  onClick={() => openModal(product._id)}
+                  className="px-3 bg-red-100 text-red-500 mr-3"
+                >
                   Remove
                 </button>
                 <button className="px-4 bg-blue-100 text-blue-500">Ads</button>
@@ -76,6 +108,11 @@ const MyProducts = () => {
           ))}
         </tbody>
       </table>
+      <ConfirmModal
+        isOpen={isOpen}
+        closeModal={closeModal}
+        clickHandler={handleDeleteProduct}
+      />
     </div>
   );
 };

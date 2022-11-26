@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider";
-import getStoredUser from "../../Hooks/getStoredUser";
+import getStoredUser from "../../sharedAPI/getStoredUser";
 
 const Sidebar = () => {
   const { user } = useContext(AuthContext);

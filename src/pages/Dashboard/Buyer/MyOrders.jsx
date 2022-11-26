@@ -3,6 +3,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import React, { useContext, useState } from "react";
+import Loader from "../../../components/Loader";
 import PaymentModal from "../../../components/PaymentModal";
 import { AuthContext } from "../../../contexts/AuthProvider";
 
@@ -29,8 +30,6 @@ const MyOrders = () => {
     return res.data.data;
   });
 
-  console.log(myOrders);
-
   function closeModal() {
     setIsOpen(!isOpen);
   }
@@ -45,7 +44,7 @@ const MyOrders = () => {
   };
 
   if (isLoading) {
-    return;
+    return <Loader isLoading={isLoading} />;
   }
 
   return (

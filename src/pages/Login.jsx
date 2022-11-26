@@ -3,11 +3,18 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { FaGithub, FaGoogle, FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import SmallSpinner from "../components/SmallSpinner";
 import { AuthContext } from "../contexts/AuthProvider";
-import saveUserAndGetToken from "../Hooks/saveUserAndGetToken";
+import saveUserAndGetToken from "../sharedAPI/saveUserAndGetToken";
 
 const Login = () => {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
+  const [loading, setLoading] = useState(false);
   const [passwordEye, setPasswordEye] = useState(true);
   const { googleLogIn, logIn } = useContext(AuthContext);
   const [authError, setAuthError] = useState("");
@@ -16,25 +23,34 @@ const Login = () => {
   const from = location?.state?.from.pathname || "/";
 
   const onSubmit = (data) => {
+    setLoading(true);
     logIn(data.email, data.password)
       .then((result) => {
-        console.log(result.user);
         setAuthError("");
         saveUserAndGetToken(result?.user)
           .then((res) => {
+            if (res.message) {
+              reset();
+              setLoading(false);
+              return toast.error(res.message);
+            }
+
             if (res.token) {
               localStorage.setItem("Best-buy-token", res.token);
+              setLoading(false);
               navigate(from, { replace: true });
               toast.success("Successfully log in");
             }
           })
           .catch((err) => {
             console.log(err);
+            setLoading(false);
           });
       })
       .catch((err) => {
         console.log(err);
         setAuthError(err.message);
+        setLoading(false);
       });
   };
 
@@ -51,6 +67,10 @@ const Login = () => {
           userImg: res?.user?.photoURL,
         };
         saveUserAndGetToken(user).then((res) => {
+          if (res.message) {
+            return toast.error(res.message);
+          }
+
           if (res.token) {
             localStorage.setItem("Best-buy-token", res.token);
             navigate(from, { replace: true });
@@ -76,6 +96,9 @@ const Login = () => {
               placeholder="Email"
               {...register("email", { required: "Email is required" })}
             />
+            {errors?.email && (
+              <p className="text-white text-sm">{errors?.email.message}</p>
+            )}
           </div>
           <div className="input-field relative mb-6">
             <input
@@ -84,6 +107,9 @@ const Login = () => {
               type={passwordEye ? "password" : "text"}
               {...register("password", { required: "Password is required" })}
             />
+            {errors?.password && (
+              <p className="text-white text-sm">{errors?.password.message}</p>
+            )}
             {passwordEye ? (
               <FaEyeSlash
                 onClick={() => setPasswordEye(!passwordEye)}
@@ -102,7 +128,7 @@ const Login = () => {
               type="submit"
               className="px-14 py-1 rounded-full bg-[#EFF5F5] mb-3"
             >
-              Log in
+              {loading ? <SmallSpinner /> : "Log in"}
             </button>
           </div>
         </form>

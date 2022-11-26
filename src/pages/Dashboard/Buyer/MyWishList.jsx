@@ -72,7 +72,7 @@ const MyWishList = () => {
                 </td>
                 <td className="whitespace-nowrap px-4 py-2 text-gray-800">
                   <button className="bg-lime-500 px-5 py-1 rounded">
-                    Booked now
+                    Purchase
                   </button>
                 </td>
               </tr>

@@ -3,11 +3,13 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { FaGithub, FaGoogle, FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
+import SmallSpinner from "../components/SmallSpinner";
 import { AuthContext } from "../contexts/AuthProvider";
-import saveUserAndGetToken from "../Hooks/saveUserAndGetToken";
+import saveUserAndGetToken from "../sharedAPI/saveUserAndGetToken";
 
 const Register = () => {
   const [passwordEye, setPasswordEye] = useState(true);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { createUser, updateUserProfile, googleLogIn } =
     useContext(AuthContext);
@@ -16,10 +18,12 @@ const Register = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
 
   // Handle Register
   const onSubmit = (data) => {
+    setLoading(true);
     const image = data.img[0];
     const formData = new FormData();
     formData.append("image", image);
@@ -53,15 +57,21 @@ const Register = () => {
                   saveUserAndGetToken(user).then((res) => {
                     if (res.token) {
                       localStorage.setItem("Best-buy-token", res.token);
+                      setLoading(false);
                       navigate("/");
+                      reset();
                       toast.success("Sign up has been successful");
                     }
                   });
                 })
-                .catch((error) => console.log(error));
+                .catch((error) => {
+                  setLoading(false);
+                  console.log(error);
+                });
             })
             .catch((err) => {
               console.log(err);
+              setLoading(false);
               setAuthError(err.message);
             });
         }
@@ -177,7 +187,7 @@ const Register = () => {
               type="submit"
               className="px-14 py-1 rounded-full bg-[#EFF5F5] mb-3"
             >
-              Register
+              {loading ? <SmallSpinner /> : "Register"}
             </button>
           </div>
         </form>

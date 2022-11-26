@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { AuthContext } from "../../../contexts/AuthProvider";
 
 const MyBuyers = () => {
@@ -9,7 +9,12 @@ const MyBuyers = () => {
     ["myBuyers", user?.email],
     async () => {
       const res = await axios.get(
-        `http://localhost:5000/myBuyers?email=${user?.email}`
+        `http://localhost:5000/myBuyers?email=${user?.email}`,
+        {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("Best-buy-token")}`,
+          },
+        }
       );
       return res.data.data;
     }
