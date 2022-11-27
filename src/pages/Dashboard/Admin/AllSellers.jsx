@@ -5,7 +5,8 @@ import toast from "react-hot-toast";
 import ConfirmModal from "../../../components/ConfirmModal";
 import Loader from "../../../components/Loader";
 import { AuthContext } from "../../../contexts/AuthProvider";
-import { FaCheckCircle } from "react-icons/fa";
+import { FaCheckCircle, FaTrash } from "react-icons/fa";
+import { Table } from "flowbite-react";
 
 const AllSellers = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -71,90 +72,104 @@ const AllSellers = () => {
       });
   };
 
+  // const handleMakeAdmin = (seller) => {
+  //   fetch(`http://localhost:5000/allSellers`, {
+  //     method: "PUT",
+  //     headers: {
+  //       authorization: `Bearer ${localStorage.getItem("Best-buy-token")}`,
+  //       "content-type": "application/json",
+  //     },
+  //     body: JSON.stringify(seller),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       if (data.success) {
+  //         refetch();
+  //         toast.success("Make admin successful");
+  //       }
+  //     });
+  // };
+
   if (allSellers.length < 1) {
     return (
-      <h1 className="text-3xl uppercase mt-20 font-bold text-center text-slate-700">
+      <h1 className="text-3xl uppercase py-6 font-bold text-center text-slate-700">
         No Seller for you
       </h1>
     );
   }
 
   return (
-    <>
-      <h1 className="text-3xl uppercase mb-6 font-bold text-center text-slate-700">
+    <div>
+      <h1 className="text-3xl uppercase py-6 font-bold text-center text-slate-700">
         All Sellers
       </h1>
-      <div className=" rounded-lg border border-gray-200">
-        <table className="min-w-full divide-y divide-gray-200 text-sm">
-          <thead className="bg-gray-100">
-            <tr>
-              <th className="whitespace-nowrap px-4 py-2 text-left font-semibold text-gray-900">
-                Image
-              </th>
-              <th className="whitespace-nowrap px-4 py-2 text-left font-semibold text-gray-900">
-                Name
-              </th>
-              <th className="whitespace-nowrap px-4 py-2 text-left font-semibold text-gray-900">
-                Email
-              </th>
-              <th className="whitespace-nowrap px-4 py-2 text-left font-semibold text-gray-900">
-                Action
-              </th>
-            </tr>
-          </thead>
 
-          <tbody className="divide-y divide-gray-200">
-            {allSellers.map((seller) => (
-              <tr key={seller._id}>
-                <td className="whitespace-nowrap px-4 py-2 text-gray-900">
-                  <img
-                    className="h-12 w-12 rounded-full"
-                    src={seller.userImg}
-                    alt=""
-                  />
-                </td>
-                <td className="whitespace-nowrap px-4 py-2 text-gray-800 font-semibold">
-                  {seller.name}{" "}
-                  {seller.verified && (
-                    <FaCheckCircle className="text-blue-500 inline-block ml-1l mb-1" />
-                  )}
-                </td>
-                <td className="whitespace-nowrap px-4 py-2 text-gray-800 font-semibold">
-                  {seller.email}
-                </td>
-                <td className="whitespace-nowrap px-4 py-2 text-gray-800">
-                  <div className="flex justify-between items-center">
-                    <button
-                      onClick={() => openModal(seller)}
-                      className="px-3 py-1 bg-red-100 text-red-500"
-                    >
-                      Remove
-                    </button>
-                    <button className="px-3 py-1 bg-green-100 text-green-500">
-                      Make Admin
-                    </button>
-                    {!seller.verified && (
-                      <button
-                        onClick={() => handleVerified(seller)}
-                        className="px-3 py-1 text-sm bg-blue-100 text-blue-500"
-                      >
-                        Make Verified
-                      </button>
-                    )}
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <Table>
+        <Table.Head>
+          <Table.HeadCell>Image</Table.HeadCell>
+          <Table.HeadCell>Name</Table.HeadCell>
+          <Table.HeadCell>Email</Table.HeadCell>
+          <Table.HeadCell>Action</Table.HeadCell>
+          {/* <Table.HeadCell>Admin</Table.HeadCell> */}
+          <Table.HeadCell>Verified</Table.HeadCell>
+        </Table.Head>
+        <Table.Body className="divide-y">
+          {allSellers.map((seller) => (
+            <Table.Row
+              key={seller._id}
+              className="bg-white dark:border-gray-700 dark:bg-gray-800"
+            >
+              <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                <img
+                  className="h-12 w-12 rounded-full"
+                  src={seller.userImg}
+                  alt=""
+                />
+              </Table.Cell>
+              <Table.Cell>
+                {seller.name}{" "}
+                {seller.verified && (
+                  <FaCheckCircle className="inline-block text-blue-500 mb-1 ml-1" />
+                )}
+              </Table.Cell>
+              <Table.Cell>{seller.email}</Table.Cell>
+              <Table.Cell>
+                <FaTrash
+                  onClick={() => openModal(seller)}
+                  className="text-red-500 text-lg mx-auto"
+                />
+              </Table.Cell>
+              {/* <Table.Cell>
+                <button
+                  onClick={() => handleMakeAdmin(seller)}
+                  className="px-3 text-sm py-1 bg-green-100 text-green-500"
+                >
+                  {seller.role === "admin" ? "Admin" : "Make Admin"}
+                </button>
+              </Table.Cell> */}
+              <Table.Cell>
+                {seller.verified ? (
+                  <span className="text-blue-500">Verified</span>
+                ) : (
+                  <button
+                    onClick={() => handleVerified(seller)}
+                    className="px-3 text-xs py-1 bg-green-100 text-blue-500"
+                  >
+                    Make verified
+                  </button>
+                )}
+              </Table.Cell>
+            </Table.Row>
+          ))}
+        </Table.Body>
         <ConfirmModal
           isOpen={isOpen}
           closeModal={closeModal}
-          clickHandler={handleDeleteSeller}
-          item="Seller"
+          handleClick={handleDeleteSeller}
+          item="seller"
         />
-      </div>
-    </>
+      </Table>
+    </div>
   );
 };
 

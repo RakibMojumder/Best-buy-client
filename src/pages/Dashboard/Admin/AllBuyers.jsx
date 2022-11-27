@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { Table } from "flowbite-react";
 import React, { useContext, useState } from "react";
 import toast from "react-hot-toast";
 import ConfirmModal from "../../../components/ConfirmModal";
@@ -26,6 +27,7 @@ const AllBuyers = () => {
   if (isLoading) {
     return;
   }
+  console.log(allBuyers.length);
 
   if (isLoading) {
     return <Loader loading={isLoading} />;
@@ -59,9 +61,9 @@ const AllBuyers = () => {
       });
   };
 
-  if (AllBuyers.length === 0) {
+  if (allBuyers.length < 1) {
     return (
-      <h1 className="text-3xl uppercase mt-20 font-bold text-center text-slate-700">
+      <h1 className="text-3xl uppercase py-6 font-bold text-center text-slate-700">
         No Buyer for you
       </h1>
     );
@@ -69,69 +71,55 @@ const AllBuyers = () => {
 
   return (
     <>
-      <h1 className="text-3xl uppercase mb-6 font-bold text-center text-slate-700">
-        All Byers
+      <h1 className="text-3xl uppercase py-6 font-bold text-center text-slate-700">
+        All Buyers
       </h1>
-      <div className="overflow-hidden overflow-x-auto rounded-lg border border-gray-200">
-        <table className="min-w-full divide-y divide-gray-200 text-sm">
-          <thead className="bg-gray-100">
-            <tr>
-              <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
-                Image
-              </th>
-              <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
-                Name
-              </th>
-              <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
-                Email
-              </th>
-              <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
-                Action
-              </th>
-              <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900"></th>
-            </tr>
-          </thead>
-
-          <tbody className="divide-y divide-gray-200">
-            {allBuyers.map((buyer) => (
-              <tr key={buyer._id}>
-                <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                  <img
-                    className="h-12 w-12 rounded-full"
-                    src={buyer.userImg}
-                    alt=""
-                  />
-                </td>
-                <td className="whitespace-nowrap px-4 py-2 text-gray-800 font-semibold">
-                  {buyer.name}
-                </td>
-                <td className="whitespace-nowrap px-4 py-2 text-gray-800 font-semibold">
-                  {buyer.email}
-                </td>
-                <td className="whitespace-nowrap px-4 py-2 text-gray-800">
-                  <button
-                    onClick={() => openModal(buyer)}
-                    className="px-5 py-1 bg-red-100 text-red-500"
-                  >
-                    Remove
-                  </button>
-                </td>
-                <td className="whitespace-nowrap px-4 py-2 text-gray-800">
-                  <button className="px-5 py-1 bg-green-100 text-green-500">
-                    Make Admin
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <Table>
+        <Table.Head>
+          <Table.HeadCell>Image</Table.HeadCell>
+          <Table.HeadCell>Name</Table.HeadCell>
+          <Table.HeadCell>Email</Table.HeadCell>
+          <Table.HeadCell>Action</Table.HeadCell>
+          {/* <Table.HeadCell>Admin</Table.HeadCell> */}
+        </Table.Head>
+        <Table.Body className="divide-y">
+          {allBuyers.map((buyer) => (
+            <Table.Row
+              key={buyer._id}
+              className="bg-white dark:border-gray-700 dark:bg-gray-800"
+            >
+              <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                <img
+                  className="h-12 w-12 rounded-full"
+                  src={buyer.userImg}
+                  alt=""
+                />
+              </Table.Cell>
+              <Table.Cell>{buyer.name}</Table.Cell>
+              <Table.Cell>{buyer.email}</Table.Cell>
+              <Table.Cell>
+                <button
+                  onClick={() => openModal(buyer)}
+                  className="px-5 py-1 bg-red-100 text-red-500"
+                >
+                  Remove
+                </button>
+              </Table.Cell>
+              {/* <Table.Cell>
+                <button className="px-5 py-1 bg-green-100 text-green-500">
+                  Make Admin
+                </button>
+              </Table.Cell> */}
+            </Table.Row>
+          ))}
+        </Table.Body>
         <ConfirmModal
           isOpen={isOpen}
           closeModal={closeModal}
           clickHandler={handleDeleteBuyer}
           item="Buyer"
         />
-      </div>
+      </Table>
     </>
   );
 };

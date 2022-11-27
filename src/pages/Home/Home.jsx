@@ -1,13 +1,15 @@
 import React from "react";
 import Advertise from "./Advertise/Advertise";
+import Banner from "./Banner";
 import ProductCategory from "./ProductCategory";
 
 const Home = () => {
   return (
-    <div>
+    <>
+      <Banner />
       <ProductCategory />
       <Advertise />
-    </div>
+    </>
   );
 };
 

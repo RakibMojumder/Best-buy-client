@@ -26,6 +26,8 @@ const MyProducts = () => {
     return;
   }
 
+  console.log(myProducts);
+
   function closeModal() {
     setIsOpen(false);
   }
@@ -127,7 +129,9 @@ const MyProducts = () => {
                   <button
                     onClick={() => handleAds(product)}
                     className="px-4 bg-blue-100 text-blue-500"
-                  ></button>
+                  >
+                    Ads
+                  </button>
                 )}
               </td>
             </tr>

@@ -24,9 +24,17 @@ const MyBuyers = () => {
     return;
   }
 
+  if (myBuyers.length < 1) {
+    return (
+      <h1 className="text-2xl text-slate-700 py-6 text-center uppercase font-bold">
+        You don't have any buyer's yet
+      </h1>
+    );
+  }
+
   return (
-    <div>
-      <h1>My buyers</h1>
+    <div className="pt-6">
+      <h1 className="text-xl text-slate-700 font-bold my-4">My buyers</h1>
       <div className="overflow-hidden overflow-x-auto rounded-lg bwish bwish-gray-200">
         <table className="min-w-full divide-y divide-gray-200 text-sm">
           <thead className="bg-gray-100">

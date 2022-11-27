@@ -6,7 +6,6 @@ const getStoredUser = async email => {
         },
     })
     const data = await res.json();
-
     return data.data;
 }
 

@@ -1,15 +1,18 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { AuthContext } from "../contexts/AuthProvider";
 import toast from "react-hot-toast";
+import SmallSpinner from "./SmallSpinner";
 
-const BookingModal = ({ isOpen, closeModal, booking }) => {
+const BookingModal = ({ isOpen, closeModal, booking, refetch }) => {
   const { user } = useContext(AuthContext);
   const { _id, name, resalePrice, img } = booking;
+  const [loading, setLoading] = useState(false);
 
   const handleBooking = (e) => {
     e.preventDefault();
+    setLoading(true);
 
     const bookingData = {
       productId: _id,
@@ -22,7 +25,6 @@ const BookingModal = ({ isOpen, closeModal, booking }) => {
       meetingLocation: e.target.location.value,
       productImg: img,
     };
-    console.log(bookingData);
 
     fetch("http://localhost:5000/bookings", {
       method: "POST",
@@ -33,9 +35,12 @@ const BookingModal = ({ isOpen, closeModal, booking }) => {
     })
       .then((res) => res.json())
       .then((data) => {
+        setLoading(false);
         closeModal();
+        refetch();
         toast.success("You booking is confirmed");
-      });
+      })
+      .catch((e) => console.log(e));
   };
 
   return (
@@ -104,6 +109,7 @@ const BookingModal = ({ isOpen, closeModal, booking }) => {
                       type="text"
                       name="phone"
                       placeholder="Your phone number"
+                      required
                     />
                   </div>
                   <div className="input-field">
@@ -112,13 +118,14 @@ const BookingModal = ({ isOpen, closeModal, booking }) => {
                       type="text"
                       name="location"
                       placeholder="Meeting Location"
+                      required
                     />
                   </div>
                   <button
                     type="submit"
                     className="bg-green-600 w-full py-1 text-white rounded-md"
                   >
-                    Submit
+                    {loading ? <SmallSpinner /> : "Submit"}
                   </button>
                 </form>
               </Dialog.Panel>

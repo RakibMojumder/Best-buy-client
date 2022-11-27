@@ -27,12 +27,18 @@ const MyWishList = () => {
   }
 
   if (wishList.length === 0) {
-    return <div>Your wish list is empty</div>;
+    return (
+      <h1 className="text-2xl text-slate-700 font-bold py-6 text-center">
+        Your wish list is empty
+      </h1>
+    );
   }
 
   return (
     <div>
-      <h1>Wish list</h1>
+      <h1 className="text-2xl text-slate-700 font-bold text-center py-5">
+        Your Wish List
+      </h1>
       <div className="overflow-hidden overflow-x-auto rounded-lg bwish bwish-gray-200">
         <table className="min-w-full divide-y divide-gray-200 text-sm">
           <thead className="bg-gray-100">

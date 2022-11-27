@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../contexts/AuthProvider";
-import HashLoader from "react-spinners/ClipLoader";
 import AllSellers from "./Admin/AllSellers";
 import MyOrders from "./Buyer/MyOrders";
 import AddProduct from "./Seller/AddProduct";

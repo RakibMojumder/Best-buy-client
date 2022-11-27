@@ -47,65 +47,78 @@ const MyOrders = () => {
     return <Loader isLoading={isLoading} />;
   }
 
-  return (
-    <div className="overflow-hidden overflow-x-auto rounded-lg border border-gray-200">
-      <table className="min-w-full divide-y divide-gray-200 text-sm">
-        <thead className="bg-gray-100">
-          <tr>
-            <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
-              Image
-            </th>
-            <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
-              Title
-            </th>
-            <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
-              Price
-            </th>
-            <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
-              Status
-            </th>
-          </tr>
-        </thead>
+  if (myOrders.length === 0) {
+    return (
+      <h1 className="text-2xl text-slate-700 font-bold py-6 text-center">
+        Your order list is empty
+      </h1>
+    );
+  }
 
-        <tbody className="divide-y divide-gray-200">
-          {myOrders.map((order) => (
-            <tr key={order._id}>
-              <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                <img className="h-8" src={order?.productImg} alt="" />
-              </td>
-              <td className="whitespace-nowrap px-4 py-2 text-gray-800 font-semibold">
-                {order.productName}
-              </td>
-              <td className="whitespace-nowrap px-4 py-2 text-gray-800 font-bold">
-                ${order.productPrice}
-              </td>
-              <td className="whitespace-nowrap px-4 py-2 text-gray-800">
-                {order?.status === "paid" ? (
-                  <button className="bg-green-100 text-green-500 px-5 py-1 rounded">
-                    Paid
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => handleClick(order)}
-                    className="bg-red-100 text-red-500 px-5 py-1 rounded"
-                  >
-                    Pay
-                  </button>
-                )}
-              </td>
+  return (
+    <>
+      <h1 className="text-2xl text-slate-700 font-bold text-center py-5">
+        Your Order List
+      </h1>
+      <div className="overflow-hidden overflow-x-auto rounded-lg border border-gray-200">
+        <table className="min-w-full divide-y divide-gray-200 text-sm">
+          <thead className="bg-gray-100">
+            <tr>
+              <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
+                Image
+              </th>
+              <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
+                Title
+              </th>
+              <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
+                Price
+              </th>
+              <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
+                Status
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-      <Elements stripe={stripePromise}>
-        <PaymentModal
-          isOpen={isOpen}
-          closeModal={closeModal}
-          bookedOrder={bookedOrder}
-          refetch={refetch}
-        />
-      </Elements>
-    </div>
+          </thead>
+
+          <tbody className="divide-y divide-gray-200">
+            {myOrders.map((order) => (
+              <tr key={order._id}>
+                <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                  <img className="h-8" src={order?.productImg} alt="" />
+                </td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-800 font-semibold">
+                  {order.productName}
+                </td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-800 font-bold">
+                  ${order.productPrice}
+                </td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-800">
+                  {order?.status === "paid" ? (
+                    <button className="bg-green-100 text-green-500 px-5 py-1 rounded">
+                      Paid
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => handleClick(order)}
+                      className="bg-red-100 text-red-500 px-5 py-1 rounded"
+                    >
+                      Pay
+                    </button>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <Elements stripe={stripePromise}>
+          <PaymentModal
+            isOpen={isOpen}
+            closeModal={closeModal}
+            bookedOrder={bookedOrder}
+            refetch={refetch}
+          />
+        </Elements>
+      </div>
+    </>
   );
 };
 

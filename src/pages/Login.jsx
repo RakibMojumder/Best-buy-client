@@ -85,8 +85,8 @@ const Login = () => {
   };
 
   return (
-    <div className="w-1/2 mx-auto mt-10 py-10 px-20 bg-[#2b6777]">
-      <h1 className="text-3xl font-bold my-5 text-center text-white">Log in</h1>
+    <div className="md:w-3/5 lg:w-1/2 mx-auto mt-10 py-10 px-10 lg:px-20 bg-white shadow-lg rounded-lg">
+      <h1 className="text-3xl font-bold my-5 text-center ">Log in</h1>
       <div className="">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="input-field relative mb-6">
@@ -97,7 +97,7 @@ const Login = () => {
               {...register("email", { required: "Email is required" })}
             />
             {errors?.email && (
-              <p className="text-white text-sm">{errors?.email.message}</p>
+              <p className=" text-sm">{errors?.email.message}</p>
             )}
           </div>
           <div className="input-field relative mb-6">
@@ -108,7 +108,7 @@ const Login = () => {
               {...register("password", { required: "Password is required" })}
             />
             {errors?.password && (
-              <p className="text-white text-sm">{errors?.password.message}</p>
+              <p className=" text-sm">{errors?.password.message}</p>
             )}
             {passwordEye ? (
               <FaEyeSlash
@@ -126,14 +126,14 @@ const Login = () => {
           <div className="text-center mt-6">
             <button
               type="submit"
-              className="px-14 py-1 rounded-full bg-[#EFF5F5] mb-3"
+              className="px-14 py-1 rounded-full bg-[#3749BB] text-white mb-3"
             >
               {loading ? <SmallSpinner /> : "Log in"}
             </button>
           </div>
         </form>
 
-        <p className="text-center text-white">
+        <p className="text-center ">
           Already have an account?{" "}
           <Link to="/register" className="hover:underline">
             Register
@@ -141,19 +141,19 @@ const Login = () => {
         </p>
 
         <div className="flex justify-between items-center my-3">
-          <div className="h-[1px] w-[23%] lg:w-[40%] bg-white"></div>
-          <div className="text-white">or</div>
-          <div className="h-[1px] w-[23%] lg:w-[40%] bg-white"></div>
+          <div className="h-[1px] w-[40%] bg-slate-600"></div>
+          <div className="">or</div>
+          <div className="h-[1px] w-[40%] bg-slate-600"></div>
         </div>
         <div className="mt-5">
           <button
             onClick={handleGoogleSignIn}
-            className="flex items-center justify-center bg-[#dc392d] rounded-md text-white w-60 mx-auto py-2 transition-all hover:bg-[#f5564b]"
+            className="flex items-center justify-center text-white bg-[#dc392d] w-2/3 lg:w-full rounded-md mx-auto py-2 transition-all hover:bg-[#f5564b]"
           >
             <FaGoogle className="inline-block mr-3 text-xl" />
             <span>Google</span>
           </button>
-          <button className="flex items-center justify-center bg-slate-800 rounded-md text-white w-60 mx-auto py-2 mt-3 transition-all hover:bg-slate-600">
+          <button className="flex items-center justify-center text-white bg-slate-800 w-2/3 lg:w-full rounded-md mx-auto py-2 mt-3 transition-all hover:bg-slate-600">
             <FaGithub className="inline-block mr-3 text-xl" />{" "}
             <span>Github</span>
           </button>

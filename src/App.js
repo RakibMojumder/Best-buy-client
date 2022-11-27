@@ -9,8 +9,8 @@ const queryClient = new QueryClient();
 
 function App() {
   return (
-    <div className='bg-[##f2f2f2]'>
-      <div className='w-[80%] mx-auto'>
+    <div className='bg-[#F2F4F8]'>
+      <div className='w-[90%] lg:w-[80%] mx-auto'>
         <QueryClientProvider client={queryClient}>
           <RouterProvider router={router}></RouterProvider>
         </QueryClientProvider>

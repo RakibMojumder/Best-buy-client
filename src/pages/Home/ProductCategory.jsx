@@ -17,8 +17,8 @@ const ProductCategory = () => {
   }
 
   return (
-    <div>
-      <h1 className="text-3xl text-center my-3 font-bold">
+    <div className="py-28">
+      <h1 className="text-3xl text-[#3749BB] text-center mb-6 font-bold uppercase">
         Select The Category
       </h1>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">

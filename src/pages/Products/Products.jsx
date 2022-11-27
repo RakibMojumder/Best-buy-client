@@ -28,7 +28,10 @@ const Products = () => {
   }
 
   return (
-    <div>
+    <div className="mt-10">
+      <h1 className="text-2xl font-semibold text-slate-700 uppercase my-3">
+        Products For {id}
+      </h1>
       {products.map((product) => (
         <ProductCart
           key={product._id}
