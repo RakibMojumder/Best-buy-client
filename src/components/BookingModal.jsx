@@ -36,9 +36,9 @@ const BookingModal = ({ isOpen, closeModal, booking, refetch }) => {
       .then((res) => res.json())
       .then((data) => {
         setLoading(false);
+        toast.success("You booking is confirmed");
         closeModal();
         refetch();
-        toast.success("You booking is confirmed");
       })
       .catch((e) => console.log(e));
   };

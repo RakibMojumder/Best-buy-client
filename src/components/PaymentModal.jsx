@@ -31,7 +31,7 @@ const PaymentModal = ({ isOpen, closeModal, bookedOrder, refetch }) => {
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                <h1 className="text-3xl">Payment</h1>
+                <h1 className="text-3xl my-5">Payment</h1>
                 <CheckoutForm
                   bookedOrder={bookedOrder}
                   refetch={refetch}
