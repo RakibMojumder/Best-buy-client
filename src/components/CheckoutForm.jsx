@@ -1,9 +1,11 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { AuthContext } from "../contexts/AuthProvider";
 import SmallSpinner from "./SmallSpinner";
 
 const CheckoutForm = ({ bookedOrder, refetch, closeModal }) => {
+  const { user } = useContext(AuthContext);
   const stripe = useStripe();
   const elements = useElements();
   const [error, setError] = useState("");
@@ -11,19 +13,22 @@ const CheckoutForm = ({ bookedOrder, refetch, closeModal }) => {
   const [processing, setProcessing] = useState(false);
 
   useEffect(() => {
-    fetch(`https://best-buy-server.vercel.app/create-payment-intent`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-        authorization: `Bearer ${localStorage.getItem("Best-buy-token")}`,
-      },
-      body: JSON.stringify({ price: bookedOrder.productPrice }),
-    })
+    fetch(
+      `https://best-buy-server.vercel.app/create-payment-intent?email=${user?.email}`,
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("Best-buy-token")}`,
+        },
+        body: JSON.stringify({ price: bookedOrder.productPrice }),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         setClientSecret(data.clientSecret);
       });
-  }, [bookedOrder]);
+  }, [bookedOrder, user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,7 +43,7 @@ const CheckoutForm = ({ bookedOrder, refetch, closeModal }) => {
       return;
     }
 
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
+    const { error } = await stripe.createPaymentMethod({
       type: "card",
       card,
     });

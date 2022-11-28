@@ -123,7 +123,7 @@ const BookingModal = ({ isOpen, closeModal, booking, refetch }) => {
                   </div>
                   <button
                     type="submit"
-                    className="bg-green-600 w-full py-1 text-white rounded-md"
+                    className="bg-[#3749BB] w-full py-1 text-white rounded-md"
                   >
                     {loading ? <SmallSpinner /> : "Submit"}
                   </button>

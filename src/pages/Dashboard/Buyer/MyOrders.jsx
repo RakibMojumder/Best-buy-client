@@ -86,7 +86,9 @@ const MyOrders = () => {
                   <img className="h-8" src={order?.productImg} alt="" />
                 </td>
                 <td className="whitespace-nowrap px-4 py-2 text-gray-800 font-semibold">
-                  {order.productName}
+                  {order?.productName.length > 20
+                    ? order.productName.slice(0, 20)
+                    : order.productName}
                 </td>
                 <td className="whitespace-nowrap px-4 py-2 text-gray-800 font-bold">
                   ${order.productPrice}
@@ -113,7 +115,7 @@ const MyOrders = () => {
           <PaymentModal
             isOpen={isOpen}
             closeModal={closeModal}
-            order={bookedOrder}
+            bookedOrder={bookedOrder}
             refetch={refetch}
           />
         </Elements>

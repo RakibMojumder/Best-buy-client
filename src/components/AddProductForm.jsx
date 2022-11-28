@@ -225,7 +225,7 @@ const AddProductForm = () => {
       </div>
       <button
         type="submit"
-        className="bg-green-600 w-full py-1 text-center text-white rounded-md"
+        className="bg-[#3749BB] w-full py-1 text-center text-white rounded-md"
       >
         {loading ? <SmallSpinner /> : "Add product"}
       </button>

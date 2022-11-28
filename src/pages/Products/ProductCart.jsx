@@ -8,7 +8,6 @@ const ProductCart = ({ product, openModal, setBooking }) => {
   const { user } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const {
-    _id,
     img,
     isVerified,
     configuration,
@@ -17,7 +16,6 @@ const ProductCart = ({ product, openModal, setBooking }) => {
     originalPrice,
     postedTime,
     resalePrice,
-    sellerEmail,
     sellersName,
     usedTime,
   } = product;

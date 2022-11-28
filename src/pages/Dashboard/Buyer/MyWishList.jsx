@@ -5,7 +5,7 @@ import axios from "axios";
 import { Table } from "flowbite-react";
 import React, { useContext, useState } from "react";
 import Loader from "../../../components/Loader";
-import PaymentModal from "../../../components/PaymentModal";
+import WishListPaymentModal from "../../../components/WishListPaymentModal";
 import { AuthContext } from "../../../contexts/AuthProvider";
 
 const stripePromise = loadStripe(process.env.REACT_APP_stripe_pk);
@@ -101,7 +101,7 @@ const MyWishList = () => {
         </Table.Body>
       </Table>
       <Elements stripe={stripePromise}>
-        <PaymentModal
+        <WishListPaymentModal
           isOpen={isOpen}
           closeModal={closeModal}
           order={wishProduct}

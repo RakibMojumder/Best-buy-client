@@ -28,8 +28,6 @@ const MyProducts = () => {
     return <Loader />;
   }
 
-  console.log(myProducts);
-
   function closeModal() {
     setIsOpen(false);
   }

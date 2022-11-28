@@ -24,7 +24,7 @@ const Sidebar = () => {
 
   return (
     <>
-      <div className="hidden md:block w-full p-3 divide-y-2 divide-slate-400 space-y-2 h-full bg-slate-50 text-gray-800">
+      <div className="hidden md:block w-full p-3 divide-y-2 divide-slate-400 space-y-2 h-screen bg-slate-50 text-gray-800">
         <div className="flex items-center p-2 space-x-4 mt-10">
           <img
             src={user?.photoURL}

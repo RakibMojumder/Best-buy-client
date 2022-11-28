@@ -1,20 +1,12 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import toast from "react-hot-toast";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider";
-import getStoredUser from "../../sharedAPI/getStoredUser";
 import logoImg from "../../assets/img/logo.png";
 
 const Header = () => {
   const { user, logOut, show, setShow } = useContext(AuthContext);
   const navigate = useNavigate();
-  const [storedUser, setStoredUser] = useState(null);
-
-  useEffect(() => {
-    getStoredUser(user?.email).then((res) => {
-      setStoredUser(res);
-    });
-  }, [user]);
 
   const handleShowSideBar = () => {
     setShow(!show);

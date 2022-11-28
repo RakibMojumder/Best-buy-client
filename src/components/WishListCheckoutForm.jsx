@@ -13,19 +13,22 @@ const WishListCheckoutForm = ({ closeModal, order, refetch }) => {
   const [processing, setProcessing] = useState(false);
 
   useEffect(() => {
-    fetch(`https://best-buy-server.vercel.app/create-payment-intent`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-        authorization: `Bearer ${localStorage.getItem("Best-buy-token")}`,
-      },
-      body: JSON.stringify({ price: order.resalePrice }),
-    })
+    fetch(
+      `https://best-buy-server.vercel.app/create-payment-intent?email=${user?.email}`,
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("Best-buy-token")}`,
+        },
+        body: JSON.stringify({ price: order.resalePrice }),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         setClientSecret(data.clientSecret);
       });
-  }, [order]);
+  }, [order, user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,7 +43,7 @@ const WishListCheckoutForm = ({ closeModal, order, refetch }) => {
       return;
     }
 
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
+    const { error } = await stripe.createPaymentMethod({
       type: "card",
       card,
     });
