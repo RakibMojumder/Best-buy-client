@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider";
 import getStoredUser from "../../sharedAPI/getStoredUser";
+import logoImg from "../../assets/img/logo.png";
 
 const Header = () => {
   const { user, logOut, show, setShow } = useContext(AuthContext);
@@ -63,12 +64,15 @@ const Header = () => {
               </svg>
             </button>
           </div>
-          <Link
-            to="/"
-            className="flex-none text-xl font-semibold sm:text-center dark:text-white"
-          >
-            Best Buy
-          </Link>
+          <div className="flex items-center">
+            <img className="h-10 w-10" src={logoImg} alt="" />
+            <Link
+              to="/"
+              className="flex-none text-2xl ml-4 uppercase font-bold sm:text-center dark:text-white"
+            >
+              Best Buy
+            </Link>
+          </div>
           <div className="sm:hidden">
             <button
               type="button"

@@ -47,7 +47,7 @@ const MyOrders = () => {
     return <Loader isLoading={isLoading} />;
   }
 
-  if (myOrders.length === 0) {
+  if (myOrders?.length === 0) {
     return (
       <h1 className="text-2xl text-slate-700 font-bold py-6 text-center">
         Your order list is empty
@@ -80,7 +80,7 @@ const MyOrders = () => {
           </thead>
 
           <tbody className="divide-y divide-gray-200">
-            {myOrders.map((order) => (
+            {myOrders?.map((order) => (
               <tr key={order._id}>
                 <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
                   <img className="h-8" src={order?.productImg} alt="" />

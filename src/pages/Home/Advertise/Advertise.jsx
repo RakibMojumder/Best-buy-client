@@ -34,6 +34,10 @@ const Advertise = () => {
     return;
   }
 
+  if (advertise) {
+    return;
+  }
+
   return (
     <div className="py-20">
       <Carousel slideInterval={5000}>

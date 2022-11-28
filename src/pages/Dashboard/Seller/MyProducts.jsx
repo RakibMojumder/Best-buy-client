@@ -4,8 +4,9 @@ import React, { useContext, useState } from "react";
 import toast from "react-hot-toast";
 import ConfirmModal from "../../../components/ConfirmModal";
 import { AuthContext } from "../../../contexts/AuthProvider";
-import { FaCheck, FaCheckCircle } from "react-icons/fa";
+import { FaCheck } from "react-icons/fa";
 import Loader from "../../../components/Loader";
+import { Table } from "flowbite-react";
 
 const MyProducts = () => {
   const { user } = useContext(AuthContext);
@@ -69,53 +70,54 @@ const MyProducts = () => {
       });
   };
 
-  return (
-    <div className="overflow-hidden overflow-x-auto rounded-lg border border-gray-200">
-      <table className="min-w-full divide-y divide-gray-200 text-sm">
-        <thead className="bg-gray-100">
-          <tr>
-            <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
-              Image
-            </th>
-            <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
-              Name
-            </th>
-            <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
-              Status
-            </th>
-            <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
-              Price
-            </th>
-            <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
-              Action
-            </th>
-          </tr>
-        </thead>
+  if (myProducts?.length === 0) {
+    return (
+      <h1 className="text-2xl text-slate-700 py-6 text-center uppercase font-bold">
+        You don't add any product yet
+      </h1>
+    );
+  }
 
-        <tbody className="divide-y divide-gray-200">
+  return (
+    <div>
+      <h1 className="text-2xl text-slate-700 py-6 ml-4 uppercase font-bold">
+        My Products
+      </h1>
+      <Table>
+        <Table.Head>
+          <Table.HeadCell>Image</Table.HeadCell>
+          <Table.HeadCell>Name</Table.HeadCell>
+          <Table.HeadCell>Status</Table.HeadCell>
+          <Table.HeadCell>Price</Table.HeadCell>
+          <Table.HeadCell>Action</Table.HeadCell>
+        </Table.Head>
+        <Table.Body className="divide-y">
           {myProducts.map((product) => (
-            <tr key={product._id}>
-              <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+            <Table.Row
+              key={product?._id}
+              className="bg-white dark:border-gray-700 dark:bg-gray-800"
+            >
+              <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                 <img
                   className="h-12 w-12 rounded-full"
                   src={product.img}
                   alt=""
                 />
-              </td>
-              <td className="whitespace-nowrap px-4 py-2 text-gray-800 font-semibold">
-                {product.name}
-              </td>
-              <td className="whitespace-nowrap px-4 py-2 text-gray-800 font-semibold">
+              </Table.Cell>
+              <Table.Cell>
+                {product?.name.length > 20
+                  ? product.name.slice(0, 20)
+                  : product.name}
+              </Table.Cell>
+              <Table.Cell>
                 {product.status === "sold"
                   ? "Sold"
                   : product.status === "booked"
                   ? "Booked"
                   : "Not booked yet"}
-              </td>
-              <td className="whitespace-nowrap px-4 py-2 text-gray-800">
-                ${product.resalePrice}
-              </td>
-              <td className="whitespace-nowrap px-4 py-2 text-gray-800">
+              </Table.Cell>
+              <Table.Cell>${product.resalePrice}</Table.Cell>
+              <Table.Cell>
                 <button
                   onClick={() => openModal(product._id)}
                   className="px-3 bg-red-100 text-red-500 mr-3"
@@ -134,11 +136,12 @@ const MyProducts = () => {
                     Ads
                   </button>
                 )}
-              </td>
-            </tr>
+              </Table.Cell>
+            </Table.Row>
           ))}
-        </tbody>
-      </table>
+        </Table.Body>
+      </Table>
+
       <ConfirmModal
         isOpen={isOpen}
         closeModal={closeModal}

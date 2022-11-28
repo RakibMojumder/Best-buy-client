@@ -83,12 +83,18 @@ const MyWishList = () => {
               <Table.Cell>{wish?.productCondition}</Table.Cell>
               <Table.Cell>${wish?.resalePrice}</Table.Cell>
               <Table.Cell>
-                <button
-                  onClick={() => handleClick(wish)}
-                  className="bg-red-100 text-red-500 px-5 py-1 rounded"
-                >
-                  Purchase
-                </button>
+                {wish?.status === "paid" ? (
+                  <button className="bg-green-100 text-green-500 px-5 py-1 rounded">
+                    Paid
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => handleClick(wish)}
+                    className="bg-red-100 text-red-500 px-5 py-1 rounded"
+                  >
+                    Purchase
+                  </button>
+                )}
               </Table.Cell>
             </Table.Row>
           ))}

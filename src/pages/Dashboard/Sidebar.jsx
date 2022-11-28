@@ -95,6 +95,30 @@ const Sidebar = () => {
                     Reported Item
                   </NavLink>
                 </li>
+                <li className="text-center mb-3">
+                  <NavLink
+                    to="/dashboard/addProduct"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "bg-[#3749BB] text-white block py-2 text-center"
+                        : undefined
+                    }
+                  >
+                    Add A Product
+                  </NavLink>
+                </li>
+                <li className="text-center">
+                  <NavLink
+                    to="/dashboard/myProducts"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "bg-[#3749BB] text-white block py-2 text-center"
+                        : undefined
+                    }
+                  >
+                    My products
+                  </NavLink>
+                </li>
               </>
             ) : storedUser?.role === "seller" ? (
               <>
@@ -202,6 +226,18 @@ const Sidebar = () => {
               <>
                 <li className="text-center mb-3">
                   <NavLink
+                    to="/dashboard/admin"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "bg-[#3749BB] text-white block py-2 text-center"
+                        : undefined
+                    }
+                  >
+                    Admin
+                  </NavLink>
+                </li>
+                <li className="text-center mb-3">
+                  <NavLink
                     to="/dashboard/allSellers"
                     className={({ isActive }) =>
                       isActive
@@ -234,6 +270,30 @@ const Sidebar = () => {
                     }
                   >
                     Reported Item
+                  </NavLink>
+                </li>
+                <li className="text-center mb-3">
+                  <NavLink
+                    to="/dashboard/allBuyers"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "bg-[#3749BB] text-white block py-2 text-center"
+                        : undefined
+                    }
+                  >
+                    Add A Product
+                  </NavLink>
+                </li>
+                <li className="text-center">
+                  <NavLink
+                    to="/dashboard/reportedItem"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "bg-[#3749BB] text-white block py-2 text-center"
+                        : undefined
+                    }
+                  >
+                    My products
                   </NavLink>
                 </li>
               </>
