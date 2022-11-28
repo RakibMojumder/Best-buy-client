@@ -1,9 +1,9 @@
 import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment } from "react";
 import CheckoutForm from "./CheckoutForm";
+import WishListCheckoutForm from "./WishListCheckoutForm";
 
-const PaymentModal = ({ isOpen, closeModal, bookedOrder, refetch }) => {
-  console.log(bookedOrder);
+const PaymentModal = ({ isOpen, closeModal, bookedOrder, order, refetch }) => {
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -32,11 +32,21 @@ const PaymentModal = ({ isOpen, closeModal, bookedOrder, refetch }) => {
             >
               <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                 <h1 className="text-3xl my-5">Payment</h1>
-                <CheckoutForm
-                  bookedOrder={bookedOrder}
-                  refetch={refetch}
-                  closeModal={closeModal}
-                />
+                {bookedOrder && (
+                  <CheckoutForm
+                    bookedOrder={bookedOrder}
+                    refetch={refetch}
+                    closeModal={closeModal}
+                  />
+                )}
+
+                {order && (
+                  <WishListCheckoutForm
+                    order={order}
+                    refetch={refetch}
+                    closeModal={closeModal}
+                  />
+                )}
               </Dialog.Panel>
             </Transition.Child>
           </div>

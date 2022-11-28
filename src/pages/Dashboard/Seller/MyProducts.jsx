@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import ConfirmModal from "../../../components/ConfirmModal";
 import { AuthContext } from "../../../contexts/AuthProvider";
 import { FaCheck, FaCheckCircle } from "react-icons/fa";
+import Loader from "../../../components/Loader";
 
 const MyProducts = () => {
   const { user } = useContext(AuthContext);
@@ -17,13 +18,13 @@ const MyProducts = () => {
     refetch,
   } = useQuery(["myProducts", user?.email], async () => {
     const res = await axios.get(
-      `http://localhost:5000/myProducts?email=${user?.email}`
+      `https://best-buy-server.vercel.app/myProducts?email=${user?.email}`
     );
     return res.data.data;
   });
 
   if (isLoading) {
-    return;
+    return <Loader />;
   }
 
   console.log(myProducts);
@@ -38,7 +39,7 @@ const MyProducts = () => {
   }
 
   const handleDeleteProduct = () => {
-    fetch(`http://localhost:5000/myProducts/${productId}`, {
+    fetch(`https://best-buy-server.vercel.app/myProducts/${productId}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -52,7 +53,7 @@ const MyProducts = () => {
   };
 
   const handleAds = (product) => {
-    fetch(`http://localhost:5000/advertise`, {
+    fetch(`https://best-buy-server.vercel.app/advertise`, {
       method: "POST",
       headers: {
         "content-type": "application/json",

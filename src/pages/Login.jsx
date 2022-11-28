@@ -97,7 +97,7 @@ const Login = () => {
               {...register("email", { required: "Email is required" })}
             />
             {errors?.email && (
-              <p className=" text-sm">{errors?.email.message}</p>
+              <p className="text-sm text-red-500">{errors?.email.message}</p>
             )}
           </div>
           <div className="input-field relative mb-6">
@@ -108,7 +108,7 @@ const Login = () => {
               {...register("password", { required: "Password is required" })}
             />
             {errors?.password && (
-              <p className=" text-sm">{errors?.password.message}</p>
+              <p className="text-sm text-red-500">{errors?.password.message}</p>
             )}
             {passwordEye ? (
               <FaEyeSlash

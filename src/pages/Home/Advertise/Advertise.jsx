@@ -14,7 +14,7 @@ const Advertise = () => {
     isLoading,
     refetch,
   } = useQuery(["advertise"], async () => {
-    const res = await axios.get("http://localhost:5000/advertise");
+    const res = await axios.get("https://best-buy-server.vercel.app/advertise");
     return res.data.data;
   });
 

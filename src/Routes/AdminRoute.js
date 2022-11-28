@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
+import Loader from '../components/Loader';
 import { AuthContext } from '../contexts/AuthProvider';
 import getStoredUser from '../sharedAPI/getStoredUser';
 
@@ -17,7 +18,7 @@ const AdminRoute = ({ children }) => {
     }, [user]);
 
     if (loading) {
-        return <h1>Loading....</h1>
+        return <Loader />
     }
 
     if (!user || storedUser?.role !== 'admin') {

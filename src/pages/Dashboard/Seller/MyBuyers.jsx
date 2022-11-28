@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import React, { useContext } from "react";
+import Loader from "../../../components/Loader";
 import { AuthContext } from "../../../contexts/AuthProvider";
 
 const MyBuyers = () => {
@@ -9,7 +10,7 @@ const MyBuyers = () => {
     ["myBuyers", user?.email],
     async () => {
       const res = await axios.get(
-        `http://localhost:5000/myBuyers?email=${user?.email}`,
+        `https://best-buy-server.vercel.app/myBuyers?email=${user?.email}`,
         {
           headers: {
             authorization: `Bearer ${localStorage.getItem("Best-buy-token")}`,
@@ -21,7 +22,7 @@ const MyBuyers = () => {
   );
 
   if (isLoading) {
-    return;
+    return <Loader />;
   }
 
   if (myBuyers.length < 1) {

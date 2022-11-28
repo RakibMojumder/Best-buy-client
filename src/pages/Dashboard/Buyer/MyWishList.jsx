@@ -1,17 +1,26 @@
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React, { useContext } from "react";
+import { Table } from "flowbite-react";
+import React, { useContext, useState } from "react";
+import Loader from "../../../components/Loader";
+import PaymentModal from "../../../components/PaymentModal";
 import { AuthContext } from "../../../contexts/AuthProvider";
+
+const stripePromise = loadStripe(process.env.REACT_APP_stripe_pk);
 
 const MyWishList = () => {
   const { user } = useContext(AuthContext);
+  const [isOpen, setIsOpen] = useState(false);
+  const [wishProduct, setWishProduct] = useState({});
   const {
     data: wishList,
     isLoading,
     refetch,
   } = useQuery(["wishlist", user?.email], async () => {
     const res = await axios.get(
-      `http://localhost:5000/wishlist?email=${user?.email}`,
+      `https://best-buy-server.vercel.app/wishlist?email=${user?.email}`,
       {
         headers: {
           authorization: `Bearer ${localStorage.getItem("Best-buy-token")}`,
@@ -22,14 +31,27 @@ const MyWishList = () => {
     return res.data.data;
   });
 
-  if (isLoading) {
-    return;
+  function closeModal() {
+    setIsOpen(!isOpen);
   }
 
-  if (wishList.length === 0) {
+  function openModal() {
+    setIsOpen(!isOpen);
+  }
+
+  const handleClick = (wish) => {
+    openModal();
+    setWishProduct(wish);
+  };
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  if (wishList?.length === 0) {
     return (
       <h1 className="text-2xl text-slate-700 font-bold py-6 text-center">
-        Your wish list is empty
+        Your wish? list is empty
       </h1>
     );
   }
@@ -39,53 +61,47 @@ const MyWishList = () => {
       <h1 className="text-2xl text-slate-700 font-bold text-center py-5">
         Your Wish List
       </h1>
-      <div className="overflow-hidden overflow-x-auto rounded-lg bwish bwish-gray-200">
-        <table className="min-w-full divide-y divide-gray-200 text-sm">
-          <thead className="bg-gray-100">
-            <tr>
-              <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
-                Image
-              </th>
-              <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
-                Title
-              </th>
-              <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
-                Product condition
-              </th>
-              <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
-                Price
-              </th>
-              <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
-                Status
-              </th>
-            </tr>
-          </thead>
 
-          <tbody className="divide-y divide-gray-200">
-            {wishList.map((wish) => (
-              <tr key={wish._id}>
-                <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                  <img className="h-10" src={wish?.img} alt="" />
-                </td>
-                <td className="whitespace-nowrap px-4 py-2 text-gray-800 font-semibold">
-                  {wish.name}
-                </td>
-                <td className="whitespace-nowrap px-4 py-2 text-gray-800 font-semibold">
-                  {wish.productCondition}
-                </td>
-                <td className="whitespace-nowrap px-4 py-2 text-gray-800 font-bold">
-                  ${wish.resalePrice}
-                </td>
-                <td className="whitespace-nowrap px-4 py-2 text-gray-800">
-                  <button className="bg-lime-500 px-5 py-1 rounded">
-                    Purchase
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <Table>
+        <Table.Head>
+          <Table.HeadCell>Image</Table.HeadCell>
+          <Table.HeadCell>Title</Table.HeadCell>
+          <Table.HeadCell>Product Condition</Table.HeadCell>
+          <Table.HeadCell>Price</Table.HeadCell>
+          <Table.HeadCell>Action</Table.HeadCell>
+        </Table.Head>
+        <Table.Body className="divide-y">
+          {wishList.map((wish) => (
+            <Table.Row
+              key={wish?._id}
+              className="bg-white dark:border-gray-700 dark:bg-gray-800"
+            >
+              <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                <img className="h-10" src={wish?.img} alt="" />
+              </Table.Cell>
+              <Table.Cell>{wish?.name}</Table.Cell>
+              <Table.Cell>{wish?.productCondition}</Table.Cell>
+              <Table.Cell>${wish?.resalePrice}</Table.Cell>
+              <Table.Cell>
+                <button
+                  onClick={() => handleClick(wish)}
+                  className="bg-red-100 text-red-500 px-5 py-1 rounded"
+                >
+                  Purchase
+                </button>
+              </Table.Cell>
+            </Table.Row>
+          ))}
+        </Table.Body>
+      </Table>
+      <Elements stripe={stripePromise}>
+        <PaymentModal
+          isOpen={isOpen}
+          closeModal={closeModal}
+          order={wishProduct}
+          refetch={refetch}
+        />
+      </Elements>
     </div>
   );
 };

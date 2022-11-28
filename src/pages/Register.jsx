@@ -117,7 +117,9 @@ const Register = () => {
               placeholder="Name"
               {...register("name", { required: "Name is required" })}
             />
-            {errors?.name && <p className="text-sm">{errors?.name.message}</p>}
+            {errors?.name && (
+              <p className="text-sm text-red-500">{errors?.name.message}</p>
+            )}
           </div>
           <div className="input-field relative mb-6">
             <input
@@ -127,7 +129,7 @@ const Register = () => {
               {...register("email", { required: "Email is required" })}
             />
             {errors?.email && (
-              <p className=" text-sm">{errors?.email.message}</p>
+              <p className="text-sm text-red-500">{errors?.email.message}</p>
             )}
           </div>
           <div className="input-filed mb-6">
@@ -144,7 +146,9 @@ const Register = () => {
               type="file"
               {...register("img", { required: "img is required" })}
             />
-            {errors?.img && <p className=" text-sm">{errors?.img.message}</p>}
+            {errors?.img && (
+              <p className="text-sm text-red-500">{errors?.img.message}</p>
+            )}
           </div>
           <div className="input-field relative mb-6">
             <input
@@ -172,7 +176,7 @@ const Register = () => {
               />
             )}
             {errors?.password && (
-              <p className=" text-sm">{errors?.password.message}</p>
+              <p className="text-sm text-red-500">{errors?.password.message}</p>
             )}
             {authError && <p className="mt-1">{authError}</p>}
           </div>

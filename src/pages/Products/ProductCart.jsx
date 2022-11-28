@@ -30,7 +30,7 @@ const ProductCart = ({ product, openModal, setBooking }) => {
   // Handle my wish list
   const handleWishList = (product) => {
     setLoading(true);
-    fetch("http://localhost:5000/wishlist", {
+    fetch("https://best-buy-server.vercel.app/wishlist", {
       method: "POST",
       headers: {
         "content-type": "application/json",

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider";
 import getStoredUser from "../../sharedAPI/getStoredUser";
 
@@ -19,7 +19,7 @@ const Sidebar = () => {
   }, [user, setShow]);
 
   if (loading) {
-    return <h1>Loading...</h1>;
+    return;
   }
 
   return (
@@ -34,13 +34,12 @@ const Sidebar = () => {
           <div>
             <h2 className="text-lg font-semibold">{user?.displayName}</h2>
             <span className="flex items-center space-x-1">
-              <a
+              <Link
                 rel="noopener noreferrer"
-                href="/"
                 className="text-xs hover:underline text-gray-400"
               >
                 View profile
-              </a>
+              </Link>
             </span>
           </div>
         </div>
@@ -48,6 +47,18 @@ const Sidebar = () => {
           <ul className="pt-8 pb-4 space-y-1 text-sm">
             {storedUser?.role === "admin" ? (
               <>
+                <li className="text-center mb-3">
+                  <NavLink
+                    to="/dashboard/admin"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "bg-[#3749BB] text-white block py-2 text-center"
+                        : undefined
+                    }
+                  >
+                    Admin
+                  </NavLink>
+                </li>
                 <li className="text-center mb-3">
                   <NavLink
                     to="/dashboard/allSellers"
@@ -85,7 +96,7 @@ const Sidebar = () => {
                   </NavLink>
                 </li>
               </>
-            ) : storedUser.role === "seller" ? (
+            ) : storedUser?.role === "seller" ? (
               <>
                 <li className="text-center mb-3">
                   <NavLink
@@ -226,7 +237,7 @@ const Sidebar = () => {
                   </NavLink>
                 </li>
               </>
-            ) : storedUser.role === "seller" ? (
+            ) : storedUser?.role === "seller" ? (
               <>
                 <li className="text-center mb-3">
                   <NavLink

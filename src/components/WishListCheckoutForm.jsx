@@ -1,9 +1,11 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { AuthContext } from "../contexts/AuthProvider";
 import SmallSpinner from "./SmallSpinner";
 
-const CheckoutForm = ({ bookedOrder, refetch, closeModal }) => {
+const WishListCheckoutForm = ({ closeModal, order, refetch }) => {
+  const { user } = useContext(AuthContext);
   const stripe = useStripe();
   const elements = useElements();
   const [error, setError] = useState("");
@@ -17,13 +19,13 @@ const CheckoutForm = ({ bookedOrder, refetch, closeModal }) => {
         "content-type": "application/json",
         authorization: `Bearer ${localStorage.getItem("Best-buy-token")}`,
       },
-      body: JSON.stringify({ price: bookedOrder.productPrice }),
+      body: JSON.stringify({ price: order.resalePrice }),
     })
       .then((res) => res.json())
       .then((data) => {
         setClientSecret(data.clientSecret);
       });
-  }, [bookedOrder]);
+  }, [order]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -56,8 +58,8 @@ const CheckoutForm = ({ bookedOrder, refetch, closeModal }) => {
         payment_method: {
           card: card,
           billing_details: {
-            name: bookedOrder.productName,
-            email: bookedOrder.customerEmail,
+            name: order.productName,
+            email: order.customerEmail,
           },
         },
       });
@@ -69,17 +71,16 @@ const CheckoutForm = ({ bookedOrder, refetch, closeModal }) => {
 
     if (paymentIntent.status === "succeeded") {
       const payment = {
-        price: bookedOrder.productPrice,
-        customerName: bookedOrder.customerName,
-        sellerEmail: bookedOrder.sellerEmail,
-        customerEmail: bookedOrder.customerEmail,
+        price: order.resalePrice,
+        customerName: user?.displayName,
+        sellerEmail: order.sellerEmail,
+        customerEmail: order.customerEmail,
         transactionId: paymentIntent.id,
-        bookingId: bookedOrder._id,
-        productId: bookedOrder.productId,
-        productName: bookedOrder.productName,
+        productId: order._id,
+        productName: order.name,
       };
 
-      fetch(`https://best-buy-server.vercel.app/payment`, {
+      fetch(`https://best-buy-server.vercel.app/wishListPayment`, {
         method: "POST",
         headers: {
           authorization: `Bearer ${localStorage.getItem("Best-buy-token")}`,
@@ -96,35 +97,36 @@ const CheckoutForm = ({ bookedOrder, refetch, closeModal }) => {
         });
     }
   };
-
   return (
-    <form onSubmit={handleSubmit}>
-      <CardElement
-        options={{
-          style: {
-            base: {
-              fontSize: "16px",
-              color: "#424770",
-              "::placeholder": {
-                color: "#aab7c4",
+    <div>
+      <form onSubmit={handleSubmit}>
+        <CardElement
+          options={{
+            style: {
+              base: {
+                fontSize: "16px",
+                color: "#424770",
+                "::placeholder": {
+                  color: "#aab7c4",
+                },
+              },
+              invalid: {
+                color: "#9e2146",
               },
             },
-            invalid: {
-              color: "#9e2146",
-            },
-          },
-        }}
-      />
-      <button
-        className="bg-[#3749BB] px-10 rounded-lg py-1 text-white mt-5"
-        type="submit"
-        disabled={!stripe || processing}
-      >
-        {processing ? <SmallSpinner /> : "Pay"}
-      </button>
-      {error && <p>{error.message}</p>}
-    </form>
+          }}
+        />
+        <button
+          className="bg-[#3749BB] px-10 rounded-lg py-1 text-white mt-5"
+          type="submit"
+          disabled={!stripe || processing}
+        >
+          {processing ? <SmallSpinner /> : "Pay"}
+        </button>
+        {error && <p>{error.message}</p>}
+      </form>
+    </div>
   );
 };
 
-export default CheckoutForm;
+export default WishListCheckoutForm;

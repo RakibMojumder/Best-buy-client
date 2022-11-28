@@ -17,17 +17,16 @@ const AllSellers = () => {
     isLoading,
     refetch,
   } = useQuery(["allSellers"], async () => {
-    const res = await axios.get(`http://localhost:5000/allSellers`, {
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("Best-buy-token")}`,
-      },
-    });
+    const res = await axios.get(
+      `https://best-buy-server.vercel.app/allSellers?email=${user?.email}`,
+      {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("Best-buy-token")}`,
+        },
+      }
+    );
     return res.data.data;
   });
-
-  if (isLoading) {
-    return <Loader loading={isLoading} />;
-  }
 
   function closeModal() {
     setIsOpen(false);
@@ -39,14 +38,17 @@ const AllSellers = () => {
   }
 
   const handleDeleteSeller = () => {
-    fetch(`http://localhost:5000/deleteUsers?email=${user?.email}`, {
-      method: "POST",
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("Best-buy-token")}`,
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(deletedSeller),
-    })
+    fetch(
+      `https://best-buy-server.vercel.app/deleteUsers?email=${user?.email}`,
+      {
+        method: "POST",
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("Best-buy-token")}`,
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(deletedSeller),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
@@ -58,8 +60,7 @@ const AllSellers = () => {
   };
 
   const handleVerified = (seller) => {
-    console.log(seller);
-    fetch(`http://localhost:5000/verified/${seller._id}`, {
+    fetch(`https://best-buy-server.vercel.app/verified/${seller._id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -72,25 +73,29 @@ const AllSellers = () => {
       });
   };
 
-  // const handleMakeAdmin = (seller) => {
-  //   fetch(`http://localhost:5000/allSellers`, {
-  //     method: "PUT",
-  //     headers: {
-  //       authorization: `Bearer ${localStorage.getItem("Best-buy-token")}`,
-  //       "content-type": "application/json",
-  //     },
-  //     body: JSON.stringify(seller),
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       if (data.success) {
-  //         refetch();
-  //         toast.success("Make admin successful");
-  //       }
-  //     });
-  // };
+  const handleMakeAdmin = (seller) => {
+    fetch(`https://best-buy-server.vercel.app/allSellers`, {
+      method: "PUT",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("Best-buy-token")}`,
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(seller),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          refetch();
+          toast.success("Make admin successful");
+        }
+      });
+  };
 
-  if (allSellers.length < 1) {
+  if (isLoading) {
+    return <Loader loading={isLoading} />;
+  }
+
+  if (allSellers?.length < 1) {
     return (
       <h1 className="text-3xl uppercase py-6 font-bold text-center text-slate-700">
         No Seller for you
@@ -109,9 +114,8 @@ const AllSellers = () => {
           <Table.HeadCell>Image</Table.HeadCell>
           <Table.HeadCell>Name</Table.HeadCell>
           <Table.HeadCell>Email</Table.HeadCell>
+          <Table.HeadCell>Remove</Table.HeadCell>
           <Table.HeadCell>Action</Table.HeadCell>
-          {/* <Table.HeadCell>Admin</Table.HeadCell> */}
-          <Table.HeadCell>Verified</Table.HeadCell>
         </Table.Head>
         <Table.Body className="divide-y">
           {allSellers.map((seller) => (
@@ -136,24 +140,21 @@ const AllSellers = () => {
               <Table.Cell>
                 <FaTrash
                   onClick={() => openModal(seller)}
-                  className="text-red-500 text-lg mx-auto"
+                  className="text-red-500 text-lg"
                 />
               </Table.Cell>
-              {/* <Table.Cell>
-                <button
-                  onClick={() => handleMakeAdmin(seller)}
-                  className="px-3 text-sm py-1 bg-green-100 text-green-500"
-                >
-                  {seller.role === "admin" ? "Admin" : "Make Admin"}
-                </button>
-              </Table.Cell> */}
               <Table.Cell>
                 {seller.verified ? (
-                  <span className="text-blue-500">Verified</span>
+                  <button
+                    onClick={() => handleMakeAdmin(seller)}
+                    className="px-3 text-sm py-1 bg-green-100 text-green-500"
+                  >
+                    Make Admin
+                  </button>
                 ) : (
                   <button
                     onClick={() => handleVerified(seller)}
-                    className="px-3 text-xs py-1 bg-green-100 text-blue-500"
+                    className="px-3 py-1 bg-green-100 text-blue-500"
                   >
                     Make verified
                   </button>

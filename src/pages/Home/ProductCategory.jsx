@@ -2,18 +2,21 @@ import React from "react";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
+import Loader from "../../components/Loader";
 
 const ProductCategory = () => {
   const { data: categories, isLoading } = useQuery(
     ["productCategory"],
     async () => {
-      const res = await axios.get("http://localhost:5000/productCategory");
+      const res = await axios.get(
+        "https://best-buy-server.vercel.app/productCategory"
+      );
       return res.data.data;
     }
   );
 
   if (isLoading) {
-    return;
+    return <Loader />;
   }
 
   return (

@@ -20,7 +20,7 @@ const MyOrders = () => {
     refetch,
   } = useQuery(["bookings", user?.email], async () => {
     const res = await axios.get(
-      `http://localhost:5000/bookings?email=${user?.email}`,
+      `https://best-buy-server.vercel.app/bookings?email=${user?.email}`,
       {
         headers: {
           authorization: `Bearer ${localStorage.getItem("Best-buy-token")}`,
@@ -113,7 +113,7 @@ const MyOrders = () => {
           <PaymentModal
             isOpen={isOpen}
             closeModal={closeModal}
-            bookedOrder={bookedOrder}
+            order={bookedOrder}
             refetch={refetch}
           />
         </Elements>

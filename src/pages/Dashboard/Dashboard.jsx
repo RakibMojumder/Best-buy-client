@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../contexts/AuthProvider";
-import AllSellers from "./Admin/AllSellers";
 import MyOrders from "./Buyer/MyOrders";
 import AddProduct from "./Seller/AddProduct";
 import getStoredUser from "../../sharedAPI/getStoredUser";
 import Loader from "../../components/Loader";
+import Admin from "./Admin/Admin";
 
 const Dashboard = () => {
   const { user } = useContext(AuthContext);
@@ -27,11 +27,11 @@ const Dashboard = () => {
     );
   }
 
-  if (storedUser.role === "admin") {
-    return <AllSellers />;
+  if (storedUser?.role === "admin") {
+    return <Admin />;
   }
 
-  if (storedUser.role === "seller") {
+  if (storedUser?.role === "seller") {
     return <AddProduct />;
   }
 

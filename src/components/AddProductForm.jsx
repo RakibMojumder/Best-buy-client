@@ -49,7 +49,7 @@ const AddProductForm = () => {
             mobile: data.mobile,
           };
 
-          fetch("http://localhost:5000/products", {
+          fetch("https://best-buy-server.vercel.app/products", {
             method: "POST",
             headers: {
               "content-type": "application/json",

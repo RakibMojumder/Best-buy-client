@@ -11,7 +11,9 @@ const Products = () => {
   const [booking, setBooking] = useState({});
 
   const { data: products, isLoading } = useQuery(["products", id], async () => {
-    const res = await axios.get(`http://localhost:5000/products/${id}`);
+    const res = await axios.get(
+      `https://best-buy-server.vercel.app/products/${id}`
+    );
     return res.data.data;
   });
 
