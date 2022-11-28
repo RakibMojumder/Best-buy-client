@@ -118,26 +118,28 @@ const Header = () => {
               Home
             </NavLink>
             <NavLink
-              to="/dashboard"
-              className="font-medium text-gray-600 hover:text-gray-400 dark:text-gray-400 dark:hover:text-gray-500"
-            >
-              Dashboard
-            </NavLink>
-            <NavLink
               to="/blog"
               className="font-medium text-gray-600 hover:text-gray-400 dark:text-gray-400 dark:hover:text-gray-500"
             >
               Blog
             </NavLink>
             {user ? (
-              <div className="text-left">
-                <button
-                  onClick={handleLogOut}
+              <>
+                <NavLink
+                  to="/dashboard"
                   className="font-medium text-gray-600 hover:text-gray-400 dark:text-gray-400 dark:hover:text-gray-500"
                 >
-                  Log out
-                </button>
-              </div>
+                  Dashboard
+                </NavLink>
+                <div>
+                  <button
+                    onClick={handleLogOut}
+                    className="font-medium text-gray-600 hover:text-gray-400 dark:text-gray-400 dark:hover:text-gray-500"
+                  >
+                    Log out
+                  </button>
+                </div>
+              </>
             ) : (
               <NavLink
                 to="/login"

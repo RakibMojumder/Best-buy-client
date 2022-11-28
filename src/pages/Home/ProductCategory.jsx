@@ -20,15 +20,15 @@ const ProductCategory = () => {
   }
 
   return (
-    <div className="py-28">
-      <h1 className="text-3xl text-[#3749BB] text-center mb-6 font-bold uppercase">
+    <div className="py-14 md:py-28">
+      <h1 className="text-3xl text-slate-700 text-center mb-6 font-bold uppercase">
         Select The Category
       </h1>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
         {categories?.map((category) => (
           <Link
             to={`/category/${category.brand}`}
-            className="bg-white shadow-md text-center py-2 rounded-lg"
+            className="bg-[#495ac8] text-white shadow-md text-center py-2 rounded-lg transition-all hover:bg-white hover:text-[#495ac8]"
             key={category._id}
           >
             {category.brand}

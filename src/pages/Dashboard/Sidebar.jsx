@@ -47,7 +47,7 @@ const Sidebar = () => {
           <ul className="pt-8 pb-4 space-y-1 text-sm">
             {storedUser?.role === "admin" ? (
               <>
-                <li className="text-center mb-3">
+                <li className="text-center textba mb-3">
                   <NavLink
                     to="/dashboard/admin"
                     className={({ isActive }) =>
@@ -59,7 +59,7 @@ const Sidebar = () => {
                     Admin
                   </NavLink>
                 </li>
-                <li className="text-center mb-3">
+                <li className="text-center textba mb-3">
                   <NavLink
                     to="/dashboard/allSellers"
                     className={({ isActive }) =>
@@ -71,7 +71,7 @@ const Sidebar = () => {
                     All Sellers
                   </NavLink>
                 </li>
-                <li className="text-center mb-3">
+                <li className="text-center textba mb-3">
                   <NavLink
                     to="/dashboard/allBuyers"
                     className={({ isActive }) =>
@@ -83,7 +83,7 @@ const Sidebar = () => {
                     All Buyers
                   </NavLink>
                 </li>
-                <li className="text-center">
+                <li className="text-center textba">
                   <NavLink
                     to="/dashboard/reportedItem"
                     className={({ isActive }) =>
@@ -95,7 +95,7 @@ const Sidebar = () => {
                     Reported Item
                   </NavLink>
                 </li>
-                <li className="text-center mb-3">
+                <li className="text-center textba mb-3">
                   <NavLink
                     to="/dashboard/addProduct"
                     className={({ isActive }) =>
@@ -107,7 +107,7 @@ const Sidebar = () => {
                     Add A Product
                   </NavLink>
                 </li>
-                <li className="text-center">
+                <li className="text-center textba">
                   <NavLink
                     to="/dashboard/myProducts"
                     className={({ isActive }) =>
@@ -122,7 +122,7 @@ const Sidebar = () => {
               </>
             ) : storedUser?.role === "seller" ? (
               <>
-                <li className="text-center mb-3">
+                <li className="text-center textba mb-3">
                   <NavLink
                     to="/dashboard/addProduct"
                     className={({ isActive }) =>
@@ -134,7 +134,7 @@ const Sidebar = () => {
                     Add A Product
                   </NavLink>
                 </li>
-                <li className="text-center mb-3">
+                <li className="text-center textba mb-3">
                   <NavLink
                     to="/dashboard/myProducts"
                     className={({ isActive }) =>
@@ -146,7 +146,7 @@ const Sidebar = () => {
                     My Products
                   </NavLink>
                 </li>
-                <li className="text-center mb-3">
+                <li className="text-center textba mb-3">
                   <NavLink
                     to="/dashboard/myBuyers"
                     className={({ isActive }) =>
@@ -161,7 +161,7 @@ const Sidebar = () => {
               </>
             ) : (
               <>
-                <li className="text-center mb-3">
+                <li className="text-center textba mb-3">
                   <NavLink
                     to="/dashboard/myOrders"
                     className={({ isActive }) =>
@@ -173,7 +173,7 @@ const Sidebar = () => {
                     My orders
                   </NavLink>
                 </li>
-                <li className="text-center mb-3">
+                <li className="text-center textba mb-3">
                   <NavLink
                     to="/dashboard/wishlist"
                     className={({ isActive }) =>
@@ -195,7 +195,7 @@ const Sidebar = () => {
     
     */}
       <div
-        className={`md:hidden h-full p-3 space-y-2 w-60 min-h-full bg-gray-900 text-white text-white${
+        className={`md:hidden h-full p-3 space-y-2 w-60 min-h-full bg-white text-white${
           show
             ? "block translate-x-0 transition-all ease-linear duration-500"
             : "hidden -translate-x-72 duration-500"
@@ -224,7 +224,7 @@ const Sidebar = () => {
           <ul className="pt-2 pb-4 space-y-1 text-sm">
             {storedUser?.role === "admin" ? (
               <>
-                <li className="text-center mb-3">
+                <li className="text-center textba mb-3">
                   <NavLink
                     to="/dashboard/admin"
                     className={({ isActive }) =>
@@ -236,7 +236,7 @@ const Sidebar = () => {
                     Admin
                   </NavLink>
                 </li>
-                <li className="text-center mb-3">
+                <li className="text-center textba mb-3">
                   <NavLink
                     to="/dashboard/allSellers"
                     className={({ isActive }) =>
@@ -248,7 +248,7 @@ const Sidebar = () => {
                     All Sellers
                   </NavLink>
                 </li>
-                <li className="text-center mb-3">
+                <li className="text-center textba mb-3">
                   <NavLink
                     to="/dashboard/allBuyers"
                     className={({ isActive }) =>
@@ -260,7 +260,7 @@ const Sidebar = () => {
                     All Buyers
                   </NavLink>
                 </li>
-                <li className="text-center">
+                <li className="text-center textba">
                   <NavLink
                     to="/dashboard/reportedItem"
                     className={({ isActive }) =>
@@ -272,7 +272,7 @@ const Sidebar = () => {
                     Reported Item
                   </NavLink>
                 </li>
-                <li className="text-center mb-3">
+                <li className="text-center textba mb-3">
                   <NavLink
                     to="/dashboard/allBuyers"
                     className={({ isActive }) =>
@@ -284,7 +284,7 @@ const Sidebar = () => {
                     Add A Product
                   </NavLink>
                 </li>
-                <li className="text-center">
+                <li className="text-center textba">
                   <NavLink
                     to="/dashboard/reportedItem"
                     className={({ isActive }) =>
@@ -299,7 +299,7 @@ const Sidebar = () => {
               </>
             ) : storedUser?.role === "seller" ? (
               <>
-                <li className="text-center mb-3">
+                <li className="text-center textba mb-3">
                   <NavLink
                     to="/dashboard/addProduct"
                     className={({ isActive }) =>
@@ -311,7 +311,7 @@ const Sidebar = () => {
                     Add A Product
                   </NavLink>
                 </li>
-                <li className="text-center mb-3">
+                <li className="text-center textba mb-3">
                   <NavLink
                     to="/dashboard/myProducts"
                     className={({ isActive }) =>
@@ -323,7 +323,7 @@ const Sidebar = () => {
                     My Products
                   </NavLink>
                 </li>
-                <li className="text-center mb-3">
+                <li className="text-center textba mb-3">
                   <NavLink
                     to="/dashboard/myBuyers"
                     className={({ isActive }) =>
@@ -338,7 +338,7 @@ const Sidebar = () => {
               </>
             ) : (
               <>
-                <li className="text-center mb-3">
+                <li className="text-center textba mb-3">
                   <NavLink
                     to="/dashboard/myOrders"
                     className={({ isActive }) =>
@@ -350,7 +350,7 @@ const Sidebar = () => {
                     My orders
                   </NavLink>
                 </li>
-                <li className="text-center mb-3">
+                <li className="text-center textba mb-3">
                   <NavLink
                     to="/dashboard/wishlist"
                     className={({ isActive }) =>

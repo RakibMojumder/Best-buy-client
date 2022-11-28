@@ -34,12 +34,8 @@ const Advertise = () => {
     return;
   }
 
-  if (advertise) {
-    return;
-  }
-
   return (
-    <div className="py-20">
+    <div>
       <Carousel slideInterval={5000}>
         {advertise.map((product) => (
           <ProductCart
