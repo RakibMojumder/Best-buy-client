@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Table } from "flowbite-react";
 import React, { useContext } from "react";
+import { FaCheckCircle } from "react-icons/fa";
 import Loader from "../../../components/Loader";
 import { AuthContext } from "../../../contexts/AuthProvider";
 
@@ -21,6 +22,7 @@ const Admin = () => {
       return res.data.data;
     }
   );
+  console.log(allAdmin);
 
   if (isLoading) {
     return <Loader />;
@@ -58,7 +60,12 @@ const Admin = () => {
                   alt=""
                 />
               </Table.Cell>
-              <Table.Cell>{admin.name}</Table.Cell>
+              <Table.Cell>
+                {admin.name}{" "}
+                {admin.verified && (
+                  <FaCheckCircle className="inline-block text-blue-500 mb-1 ml-1" />
+                )}
+              </Table.Cell>
               <Table.Cell>{admin.email}</Table.Cell>
             </Table.Row>
           ))}

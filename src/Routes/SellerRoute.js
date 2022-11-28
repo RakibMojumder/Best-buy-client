@@ -20,7 +20,7 @@ const SellerRoute = ({ children }) => {
         return <Loader />
     }
 
-    if (!user || (storedUser?.role !== 'admin' && storedUser?.role !== "seller")) {
+    if (!user || (storedUser?.role !== "seller")) {
         return <Navigate to='/login' state={{ from: location }} replace></Navigate>
     }
 

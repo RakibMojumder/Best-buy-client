@@ -69,6 +69,7 @@ const AllSellers = () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        toast.success("Verified successfull");
         refetch();
       });
   };
@@ -85,8 +86,8 @@ const AllSellers = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
-          refetch();
           toast.success("Make admin successful");
+          refetch();
         }
       });
   };

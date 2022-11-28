@@ -44,9 +44,9 @@ const MyProducts = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
+          toast.success("successfully deleted the product");
           closeModal();
           refetch();
-          toast.success("successfully deleted the product");
         }
       });
   };
@@ -62,8 +62,8 @@ const MyProducts = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
-          refetch();
           toast.success(`Advertise ${product.name}`);
+          refetch();
         }
       });
   };

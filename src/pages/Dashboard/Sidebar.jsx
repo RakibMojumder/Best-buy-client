@@ -49,7 +49,7 @@ const Sidebar = () => {
               <>
                 <li className="text-center textba mb-3">
                   <NavLink
-                    to="/dashboard/admin"
+                    to="/dashboard/admin/allAdmin"
                     className={({ isActive }) =>
                       isActive
                         ? "bg-[#3749BB] text-white block py-2 text-center"
@@ -61,7 +61,7 @@ const Sidebar = () => {
                 </li>
                 <li className="text-center textba mb-3">
                   <NavLink
-                    to="/dashboard/allSellers"
+                    to="/dashboard/admin/allSellers"
                     className={({ isActive }) =>
                       isActive
                         ? "bg-[#3749BB] text-white block py-2 text-center"
@@ -73,7 +73,7 @@ const Sidebar = () => {
                 </li>
                 <li className="text-center textba mb-3">
                   <NavLink
-                    to="/dashboard/allBuyers"
+                    to="/dashboard/admin/allBuyers"
                     className={({ isActive }) =>
                       isActive
                         ? "bg-[#3749BB] text-white block py-2 text-center"
@@ -85,7 +85,7 @@ const Sidebar = () => {
                 </li>
                 <li className="text-center textba">
                   <NavLink
-                    to="/dashboard/reportedItem"
+                    to="/dashboard/admin/reportedItem"
                     className={({ isActive }) =>
                       isActive
                         ? "bg-[#3749BB] text-white block py-2 text-center"
@@ -97,7 +97,7 @@ const Sidebar = () => {
                 </li>
                 <li className="text-center textba mb-3">
                   <NavLink
-                    to="/dashboard/addProduct"
+                    to="/dashboard/Admin/addProduct"
                     className={({ isActive }) =>
                       isActive
                         ? "bg-[#3749BB] text-white block py-2 text-center"
@@ -109,7 +109,7 @@ const Sidebar = () => {
                 </li>
                 <li className="text-center textba">
                   <NavLink
-                    to="/dashboard/myProducts"
+                    to="/dashboard/Admin/myProducts"
                     className={({ isActive }) =>
                       isActive
                         ? "bg-[#3749BB] text-white block py-2 text-center"
@@ -226,7 +226,7 @@ const Sidebar = () => {
               <>
                 <li className="text-center textba mb-3">
                   <NavLink
-                    to="/dashboard/admin"
+                    to="/dashboard/admin/allAdmin"
                     className={({ isActive }) =>
                       isActive
                         ? "bg-[#3749BB] text-white block py-2 text-center"
@@ -238,7 +238,7 @@ const Sidebar = () => {
                 </li>
                 <li className="text-center textba mb-3">
                   <NavLink
-                    to="/dashboard/allSellers"
+                    to="/dashboard/admin/allSellers"
                     className={({ isActive }) =>
                       isActive
                         ? "bg-[#3749BB] text-white block py-2 text-center"
@@ -250,7 +250,7 @@ const Sidebar = () => {
                 </li>
                 <li className="text-center textba mb-3">
                   <NavLink
-                    to="/dashboard/allBuyers"
+                    to="/dashboard/admin/allBuyers"
                     className={({ isActive }) =>
                       isActive
                         ? "bg-[#3749BB] text-white block py-2 text-center"
@@ -262,7 +262,7 @@ const Sidebar = () => {
                 </li>
                 <li className="text-center textba">
                   <NavLink
-                    to="/dashboard/reportedItem"
+                    to="/dashboard/admin/reportedItem"
                     className={({ isActive }) =>
                       isActive
                         ? "bg-[#3749BB] text-white block py-2 text-center"
@@ -274,7 +274,7 @@ const Sidebar = () => {
                 </li>
                 <li className="text-center textba mb-3">
                   <NavLink
-                    to="/dashboard/allBuyers"
+                    to="/dashboard/admin/addProduct"
                     className={({ isActive }) =>
                       isActive
                         ? "bg-[#3749BB] text-white block py-2 text-center"
@@ -286,7 +286,7 @@ const Sidebar = () => {
                 </li>
                 <li className="text-center textba">
                   <NavLink
-                    to="/dashboard/reportedItem"
+                    to="/dashboard/admin/myProducts"
                     className={({ isActive }) =>
                       isActive
                         ? "bg-[#3749BB] text-white block py-2 text-center"

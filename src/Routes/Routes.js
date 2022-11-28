@@ -59,27 +59,27 @@ const router = createBrowserRouter([
                 element: <Dashboard />
             },
             {
-                path: '/dashboard/admin',
+                path: '/dashboard/admin/allAdmin',
                 element: <AdminRoute><Admin /></AdminRoute>
             },
             {
-                path: "/dashboard/allSellers",
+                path: "/dashboard/admin/allSellers",
                 element: <AdminRoute><AllSellers /></AdminRoute>
             },
             {
-                path: '/dashboard/allBuyers',
+                path: '/dashboard/admin/allBuyers',
                 element: <AdminRoute><AllBuyers /></AdminRoute>
             },
             {
-                path: "/dashboard/reportedItem",
+                path: "/dashboard/admin/reportedItem",
                 element: <AdminRoute><ReportedItems /></AdminRoute>
             },
             {
-                path: "/dashboard/addProduct",
+                path: "/dashboard/Admin/addProduct",
                 element: <AdminRoute><AddProduct /></AdminRoute>
             },
             {
-                path: "/dashboard/myProducts",
+                path: "/dashboard/Admin/myProducts",
                 element: <AdminRoute><MyProducts /></AdminRoute>
             },
             {
