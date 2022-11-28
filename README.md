@@ -25,3 +25,7 @@ This is a used laptop buy and sell website where a user can buy a laptop and a s
 ## Deployment
 
 This project deploy in firebase: [Best Buy](https://best-buy-be3c4.web.app/)
+
+adminEmail: sujonahmed4554@gmail.com
+
+adminPassword: Sujon1234#
