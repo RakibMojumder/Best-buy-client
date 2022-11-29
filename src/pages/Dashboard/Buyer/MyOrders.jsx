@@ -2,6 +2,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { Table } from "flowbite-react";
 import React, { useContext, useState } from "react";
 import Loader from "../../../components/Loader";
 import PaymentModal from "../../../components/PaymentModal";
@@ -49,7 +50,7 @@ const MyOrders = () => {
 
   if (myOrders?.length === 0) {
     return (
-      <h1 className="text-2xl text-slate-700 font-bold py-6 text-center">
+      <h1 className="text-xl md:text-2xl text-slate-700 font-bold py-6 text-center up">
         Your order list is empty
       </h1>
     );
@@ -57,69 +58,57 @@ const MyOrders = () => {
 
   return (
     <>
-      <h1 className="text-2xl text-slate-700 font-bold text-center py-5">
+      <h1 className="text-2xl text-slate-700 font-bold text-center py-5 uppercase">
         Your Order List
       </h1>
-      <div className="overflow-hidden overflow-x-auto rounded-lg border border-gray-200">
-        <table className="min-w-full divide-y divide-gray-200 text-sm">
-          <thead className="bg-gray-100">
-            <tr>
-              <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
-                Image
-              </th>
-              <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
-                Title
-              </th>
-              <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
-                Price
-              </th>
-              <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
-                Status
-              </th>
-            </tr>
-          </thead>
-
-          <tbody className="divide-y divide-gray-200">
-            {myOrders?.map((order) => (
-              <tr key={order._id}>
-                <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                  <img className="h-8" src={order?.productImg} alt="" />
-                </td>
-                <td className="whitespace-nowrap px-4 py-2 text-gray-800 font-semibold">
-                  {order?.productName.length > 20
-                    ? order.productName.slice(0, 20)
-                    : order.productName}
-                </td>
-                <td className="whitespace-nowrap px-4 py-2 text-gray-800 font-bold">
-                  ${order.productPrice}
-                </td>
-                <td className="whitespace-nowrap px-4 py-2 text-gray-800">
-                  {order?.status === "paid" ? (
-                    <button className="bg-green-100 text-green-500 px-5 py-1 rounded">
-                      Paid
-                    </button>
-                  ) : (
-                    <button
-                      onClick={() => handleClick(order)}
-                      className="bg-red-100 text-red-500 px-5 py-1 rounded"
-                    >
-                      Pay
-                    </button>
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <Elements stripe={stripePromise}>
-          <PaymentModal
-            isOpen={isOpen}
-            closeModal={closeModal}
-            bookedOrder={bookedOrder}
-            refetch={refetch}
-          />
-        </Elements>
-      </div>
+      <Table>
+        <Table.Head>
+          <Table.HeadCell>Image</Table.HeadCell>
+          <Table.HeadCell>Title</Table.HeadCell>
+          <Table.HeadCell>Price</Table.HeadCell>
+          <Table.HeadCell>Status</Table.HeadCell>
+        </Table.Head>
+        <Table.Body className="divide-y">
+          {myOrders?.map((order) => (
+            <Table.Row
+              key={order?._id}
+              className="bg-white dark:border-gray-700 dark:bg-gray-800"
+            >
+              <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                <img className="h-9" src={order?.productImg} alt="" />
+              </Table.Cell>
+              <Table.Cell>
+                {order?.productName.length > 20
+                  ? order.productName.slice(0, 20)
+                  : order.productName}
+              </Table.Cell>
+              <Table.Cell>${order?.productPrice}</Table.Cell>
+              <Table.Cell>
+                {order?.status === "paid" ? (
+                  <button className="bg-green-100 text-green-500 px-5 py-1 rounded">
+                    Paid
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => handleClick(order)}
+                    className="bg-red-100 text-red-500 px-5 py-1 rounded"
+                  >
+                    Pay
+                  </button>
+                )}
+              </Table.Cell>
+            </Table.Row>
+          ))}
+        </Table.Body>
+      </Table>
+      <Elements stripe={stripePromise}>
+        <PaymentModal
+          isOpen={isOpen}
+          closeModal={closeModal}
+          bookedOrder={bookedOrder}
+          refetch={refetch}
+        />
+      </Elements>
     </>
   );
 };

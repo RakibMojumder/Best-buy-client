@@ -98,7 +98,7 @@ const AllBuyers = () => {
 
   if (allBuyers?.length < 1) {
     return (
-      <h1 className="text-3xl uppercase py-6 font-bold text-center text-slate-700">
+      <h1 className="text-xl md:text-3xl uppercase py-6 font-bold text-center text-slate-700">
         No Buyer for you
       </h1>
     );

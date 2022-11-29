@@ -22,7 +22,6 @@ const Admin = () => {
       return res.data.data;
     }
   );
-  console.log(allAdmin);
 
   if (isLoading) {
     return <Loader />;
@@ -30,7 +29,7 @@ const Admin = () => {
 
   if (allAdmin?.length < 1) {
     return (
-      <h1 className="text-3xl uppercase py-6 font-bold text-center text-slate-700">
+      <h1 className="text-xl md:text-3xl uppercase py-6 font-bold text-center text-slate-700">
         Admin list is empty
       </h1>
     );

@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
-import Loader from "../../components/Loader";
+import SmallSpinner from "../../components/SmallSpinner";
 
 const ProductCategory = () => {
   const { data: categories, isLoading } = useQuery(
@@ -16,7 +16,7 @@ const ProductCategory = () => {
   );
 
   if (isLoading) {
-    return <Loader />;
+    return <SmallSpinner />;
   }
 
   return (

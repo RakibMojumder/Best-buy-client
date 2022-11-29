@@ -70,7 +70,7 @@ const MyProducts = () => {
 
   if (myProducts?.length === 0) {
     return (
-      <h1 className="text-2xl text-slate-700 py-6 text-center uppercase font-bold">
+      <h1 className="text-xl md:text-2xl text-slate-700 py-6 text-center uppercase font-bold">
         You don't add any product yet
       </h1>
     );

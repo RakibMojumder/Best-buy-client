@@ -50,15 +50,15 @@ const MyWishList = () => {
 
   if (wishList?.length === 0) {
     return (
-      <h1 className="text-2xl text-slate-700 font-bold py-6 text-center">
-        Your wish? list is empty
+      <h1 className="text-xl md:text-2xl text-slate-700 font-bold py-6 text-center uppercase">
+        Your wish list is empty
       </h1>
     );
   }
 
   return (
     <div>
-      <h1 className="text-2xl text-slate-700 font-bold text-center py-5">
+      <h1 className="text-2xl text-slate-700 font-bold text-center py-5 uppercase">
         Your Wish List
       </h1>
 
@@ -71,7 +71,7 @@ const MyWishList = () => {
           <Table.HeadCell>Action</Table.HeadCell>
         </Table.Head>
         <Table.Body className="divide-y">
-          {wishList.map((wish) => (
+          {wishList?.map((wish) => (
             <Table.Row
               key={wish?._id}
               className="bg-white dark:border-gray-700 dark:bg-gray-800"

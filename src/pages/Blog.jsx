@@ -4,7 +4,7 @@ import React from "react";
 const Blog = () => {
   return (
     <div className="min-h-screen flex flex-col justify-center items-center py-14 md:w-2/3 lg:w-1/2 mx-auto">
-      <h1 className="text-3xl text-slate-700 uppercase mb-5 font-bold">
+      <h1 className="text-3xl text-slate-700 uppercase mb-5 font-bold text-center">
         Frequently Ask Question
       </h1>
       <Accordion alwaysOpen={true}>

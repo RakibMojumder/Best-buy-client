@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { Table } from "flowbite-react";
 import React, { useContext } from "react";
 import Loader from "../../../components/Loader";
 import { AuthContext } from "../../../contexts/AuthProvider";
@@ -27,7 +28,7 @@ const MyBuyers = () => {
 
   if (myBuyers.length < 1) {
     return (
-      <h1 className="text-2xl text-slate-700 py-6 text-center uppercase font-bold">
+      <h1 className="text-xl md:text-2xl text-slate-700 py-6 text-center uppercase font-bold">
         You don't have any buyer's yet
       </h1>
     );
@@ -35,46 +36,35 @@ const MyBuyers = () => {
 
   return (
     <div className="pt-6">
-      <h1 className="text-xl text-slate-700 font-bold my-4">My buyers</h1>
-      <div className="overflow-hidden overflow-x-auto rounded-lg bwish bwish-gray-200">
-        <table className="min-w-full divide-y divide-gray-200 text-sm">
-          <thead className="bg-gray-100">
-            <tr>
-              <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
-                Name
-              </th>
-              <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
-                Email
-              </th>
-              <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
-                Phone
-              </th>
-              <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
-                Location
-              </th>
-            </tr>
-          </thead>
-
-          <tbody className="divide-y divide-gray-200">
-            {myBuyers.map((buyer) => (
-              <tr key={buyer._id}>
-                <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                  {buyer.customerName}
-                </td>
-                <td className="whitespace-nowrap px-4 py-2 text-gray-800 font-semibold">
-                  {buyer.customerEmail}
-                </td>
-                <td className="whitespace-nowrap px-4 py-2 text-gray-800 font-semibold">
-                  {buyer.customerPhone}
-                </td>
-                <td className="whitespace-nowrap px-4 py-2 text-gray-800 font-bold">
-                  ${buyer.meetingLocation}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <h1
+        className="text-xl text-slate-700 font-bold
+       my-4"
+      >
+        My buyers
+      </h1>
+      <Table>
+        <Table.Head>
+          <Table.HeadCell>Name</Table.HeadCell>
+          <Table.HeadCell>Email</Table.HeadCell>
+          <Table.HeadCell>Phone</Table.HeadCell>
+          <Table.HeadCell>Location</Table.HeadCell>
+        </Table.Head>
+        <Table.Body className="divide-y">
+          {myBuyers.map((buyer) => (
+            <Table.Row
+              key={buyer?._id}
+              className="bg-white dark:border-gray-700 dark:bg-gray-800"
+            >
+              <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                {buyer.customerName}
+              </Table.Cell>
+              <Table.Cell>{buyer.customerEmail}</Table.Cell>
+              <Table.Cell>{buyer.customerPhone}</Table.Cell>
+              <Table.Cell>{buyer.meetingLocation}</Table.Cell>
+            </Table.Row>
+          ))}
+        </Table.Body>
+      </Table>
     </div>
   );
 };
