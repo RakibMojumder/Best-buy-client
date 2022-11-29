@@ -6,12 +6,14 @@ import toast from "react-hot-toast";
 import { FaCheckCircle, FaTrash } from "react-icons/fa";
 import ConfirmModal from "../../../components/ConfirmModal";
 import Loader from "../../../components/Loader";
+import SmallSpinner from "../../../components/SmallSpinner";
 import { AuthContext } from "../../../contexts/AuthProvider";
 
 const AllBuyers = () => {
   const { user } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
   const [deletedBuyer, setDeletedBuyer] = useState();
+  const [loading, setLoading] = useState(false);
   const {
     data: allBuyers,
     isLoading,
@@ -60,6 +62,7 @@ const AllBuyers = () => {
   };
 
   const handleVerified = (seller) => {
+    setLoading(true);
     fetch(`https://best-buy-server.vercel.app/verified/${seller._id}`, {
       method: "PUT",
       headers: {
@@ -69,6 +72,7 @@ const AllBuyers = () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        setLoading(false);
         toast.success("Verified successful");
         refetch();
       });
@@ -156,20 +160,20 @@ const AllBuyers = () => {
                     onClick={() => handleVerified(buyer)}
                     className="px-3 py-1 bg-green-100 text-blue-500"
                   >
-                    Make verified
+                    {loading ? <SmallSpinner /> : "Make verified"}
                   </button>
                 )}
               </Table.Cell>
             </Table.Row>
           ))}
         </Table.Body>
-        <ConfirmModal
-          isOpen={isOpen}
-          closeModal={closeModal}
-          clickHandler={handleDeleteBuyer}
-          item="Buyer"
-        />
       </Table>
+      <ConfirmModal
+        isOpen={isOpen}
+        closeModal={closeModal}
+        clickHandler={handleDeleteBuyer}
+        item="Buyer"
+      />
     </>
   );
 };

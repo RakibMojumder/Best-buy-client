@@ -164,13 +164,13 @@ const AllSellers = () => {
             </Table.Row>
           ))}
         </Table.Body>
-        <ConfirmModal
-          isOpen={isOpen}
-          closeModal={closeModal}
-          handleClick={handleDeleteSeller}
-          item="seller"
-        />
       </Table>
+      <ConfirmModal
+        isOpen={isOpen}
+        closeModal={closeModal}
+        clickHandler={handleDeleteSeller}
+        item="seller"
+      />
     </div>
   );
 };

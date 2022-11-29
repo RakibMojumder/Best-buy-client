@@ -50,7 +50,7 @@ const MyOrders = () => {
 
   if (myOrders?.length === 0) {
     return (
-      <h1 className="text-xl md:text-2xl text-slate-700 font-bold py-6 text-center up">
+      <h1 className="text-xl md:text-2xl text-slate-700 uppercase font-bold py-6 text-center up">
         Your order list is empty
       </h1>
     );
