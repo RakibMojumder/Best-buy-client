@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Carousel } from "flowbite-react";
-import ProductCart from "../../Products/ProductCart";
 import BookingModal from "../../../components/BookingModal";
+import AdvertiseCart from "./AdvertiseCart";
+import Loader from "../../../components/Loader";
 
 const Advertise = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,12 +14,12 @@ const Advertise = () => {
     isLoading,
     refetch,
   } = useQuery(["advertise"], async () => {
-    const res = await axios.get("https://best-buy-server.vercel.app/advertise");
+    const res = await axios.get("http://localhost:5000/advertise");
     return res.data.data;
   });
 
   if (isLoading) {
-    return;
+    return <Loader />;
   }
 
   function closeModal() {
@@ -38,7 +38,7 @@ const Advertise = () => {
     <div>
       <Carousel slideInterval={5000}>
         {advertise.map((product) => (
-          <ProductCart
+          <AdvertiseCart
             key={product._id}
             product={product}
             openModal={openModal}

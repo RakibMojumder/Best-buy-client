@@ -18,7 +18,7 @@ const AllSellers = () => {
     refetch,
   } = useQuery(["allSellers"], async () => {
     const res = await axios.get(
-      `https://best-buy-server.vercel.app/allSellers?email=${user?.email}`,
+      `http://localhost:5000/allSellers?email=${user?.email}`,
       {
         headers: {
           authorization: `Bearer ${localStorage.getItem("Best-buy-token")}`,
@@ -38,17 +38,14 @@ const AllSellers = () => {
   }
 
   const handleDeleteSeller = () => {
-    fetch(
-      `https://best-buy-server.vercel.app/deleteUsers?email=${user?.email}`,
-      {
-        method: "POST",
-        headers: {
-          authorization: `Bearer ${localStorage.getItem("Best-buy-token")}`,
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(deletedSeller),
-      }
-    )
+    fetch(`http://localhost:5000/deleteUsers?email=${user?.email}`, {
+      method: "POST",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("Best-buy-token")}`,
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(deletedSeller),
+    })
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
@@ -60,7 +57,7 @@ const AllSellers = () => {
   };
 
   const handleVerified = (seller) => {
-    fetch(`https://best-buy-server.vercel.app/verified/${seller._id}`, {
+    fetch(`http://localhost:5000/verified/${seller._id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -75,7 +72,7 @@ const AllSellers = () => {
   };
 
   const handleMakeAdmin = (seller) => {
-    fetch(`https://best-buy-server.vercel.app/allSellers`, {
+    fetch(`http://localhost:5000/allSellers`, {
       method: "PUT",
       headers: {
         authorization: `Bearer ${localStorage.getItem("Best-buy-token")}`,
@@ -106,7 +103,7 @@ const AllSellers = () => {
 
   return (
     <div>
-      <h1 className="text-3xl uppercase py-6 font-bold text-center text-slate-700">
+      <h1 className="text-3xl uppercase py-6 font-bold text-center text-slate-700 dark:text-white">
         All Sellers
       </h1>
 
@@ -122,7 +119,7 @@ const AllSellers = () => {
           {allSellers.map((seller) => (
             <Table.Row
               key={seller._id}
-              className="bg-white dark:border-gray-700 dark:bg-gray-800"
+              className="bg-white dark:border-gray-700 dark:text-white dark:bg-gray-800"
             >
               <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                 <img

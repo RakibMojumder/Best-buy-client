@@ -19,7 +19,7 @@ const MyProducts = () => {
     refetch,
   } = useQuery(["myProducts", user?.email], async () => {
     const res = await axios.get(
-      `https://best-buy-server.vercel.app/myProducts?email=${user?.email}`
+      `http://localhost:5000/myProducts?email=${user?.email}`
     );
     return res.data.data;
   });
@@ -38,7 +38,7 @@ const MyProducts = () => {
   }
 
   const handleDeleteProduct = () => {
-    fetch(`https://best-buy-server.vercel.app/myProducts/${productId}`, {
+    fetch(`http://localhost:5000/myProducts/${productId}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -52,7 +52,7 @@ const MyProducts = () => {
   };
 
   const handleAds = (product) => {
-    fetch(`https://best-buy-server.vercel.app/advertise`, {
+    fetch(`http://localhost:5000/advertise`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -70,7 +70,7 @@ const MyProducts = () => {
 
   if (myProducts?.length === 0) {
     return (
-      <h1 className="text-xl md:text-2xl text-slate-700 py-6 text-center uppercase font-bold">
+      <h1 className="text-xl md:text-2xl text-slate-700 dark:text-white py-6 text-center uppercase font-bold">
         You don't add any product yet
       </h1>
     );
@@ -78,7 +78,7 @@ const MyProducts = () => {
 
   return (
     <div>
-      <h1 className="text-2xl text-slate-700 py-6 ml-4 uppercase font-bold">
+      <h1 className="text-2xl text-slate-700 dark:text-white py-6 ml-4 uppercase font-bold">
         My Products
       </h1>
       <Table>

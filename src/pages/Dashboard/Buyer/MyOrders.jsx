@@ -1,5 +1,3 @@
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Table } from "flowbite-react";
@@ -7,8 +5,6 @@ import React, { useContext, useState } from "react";
 import Loader from "../../../components/Loader";
 import PaymentModal from "../../../components/PaymentModal";
 import { AuthContext } from "../../../contexts/AuthProvider";
-
-const stripePromise = loadStripe(process.env.REACT_APP_stripe_pk);
 
 const MyOrders = () => {
   const { user } = useContext(AuthContext);
@@ -21,7 +17,7 @@ const MyOrders = () => {
     refetch,
   } = useQuery(["bookings", user?.email], async () => {
     const res = await axios.get(
-      `https://best-buy-server.vercel.app/bookings?email=${user?.email}`,
+      `http://localhost:5000/bookings?email=${user?.email}`,
       {
         headers: {
           authorization: `Bearer ${localStorage.getItem("Best-buy-token")}`,
@@ -50,7 +46,7 @@ const MyOrders = () => {
 
   if (myOrders?.length === 0) {
     return (
-      <h1 className="text-xl md:text-2xl text-slate-700 uppercase font-bold py-6 text-center up">
+      <h1 className="text-xl md:text-2xl text-slate-700 dark:text-white uppercase font-bold py-6 text-center up">
         Your order list is empty
       </h1>
     );
@@ -58,7 +54,7 @@ const MyOrders = () => {
 
   return (
     <>
-      <h1 className="text-2xl text-slate-700 font-bold text-center py-5 uppercase">
+      <h1 className="text-2xl text-slate-700 dark:text-white font-bold text-center py-5 uppercase">
         Your Order List
       </h1>
       <Table>
@@ -101,14 +97,12 @@ const MyOrders = () => {
           ))}
         </Table.Body>
       </Table>
-      <Elements stripe={stripePromise}>
-        <PaymentModal
-          isOpen={isOpen}
-          closeModal={closeModal}
-          bookedOrder={bookedOrder}
-          refetch={refetch}
-        />
-      </Elements>
+      <PaymentModal
+        isOpen={isOpen}
+        closeModal={closeModal}
+        bookedOrder={bookedOrder}
+        refetch={refetch}
+      />
     </>
   );
 };

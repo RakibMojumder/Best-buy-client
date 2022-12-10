@@ -106,11 +106,13 @@ const Register = () => {
   };
 
   return (
-    <div className="w-1/2 mx-auto mt-10 py-5 px-20 bg-white shadow-lg rounded-lg">
-      <h1 className="text-3xl font-bold my-5 text-center">Register</h1>
+    <div className="w-1/2 mx-auto mt-10 py-5 px-20 bg-white dark:bg-slate-700/[0.2] shadow-2xl dark:drop-shadow-xl rounded-lg">
+      <h1 className="text-3xl font-bold my-5 text-center dark:text-white">
+        Register
+      </h1>
       <div className="">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="input-field relative mb-6">
+          <div className="input-field relative mb-6 dark:text-slate-800">
             <input
               className="border w-full py-1 pl-5 focus:outline-none"
               type="text"
@@ -121,7 +123,7 @@ const Register = () => {
               <p className="text-sm text-red-500">{errors?.name.message}</p>
             )}
           </div>
-          <div className="input-field relative mb-6">
+          <div className="input-field relative mb-6 dark:text-slate-800">
             <input
               className="border w-full py-1 pl-5 focus:outline-none"
               type="email"
@@ -132,7 +134,7 @@ const Register = () => {
               <p className="text-sm text-red-500">{errors?.email.message}</p>
             )}
           </div>
-          <div className="input-filed mb-6">
+          <div className="input-filed mb-6 dark:text-slate-800">
             <select className="w-full py-1.5 px-4" {...register("userRole")}>
               <option value="user" defaultValue="user">
                 user
@@ -140,7 +142,7 @@ const Register = () => {
               <option value="seller">seller</option>
             </select>
           </div>
-          <div className="input-filed-img mb-6">
+          <div className="input-filed-img mb-6 dark:text-white">
             <input
               className=""
               type="file"
@@ -150,9 +152,9 @@ const Register = () => {
               <p className="text-sm text-red-500">{errors?.img.message}</p>
             )}
           </div>
-          <div className="input-field relative mb-6">
+          <div className="input-field relative mb-6 dark:text-slate-800">
             <input
-              className="border w-full py-1 pl-5 focus:outline-none"
+              className="border w-full py-1 pl-5 focus:outline-none dark:text-slate-700"
               placeholder="Password"
               type={passwordEye ? "password" : "text"}
               {...register("password", {
@@ -167,12 +169,12 @@ const Register = () => {
             {passwordEye ? (
               <FaEyeSlash
                 onClick={() => setPasswordEye(!passwordEye)}
-                className="absolute top-2 right-4"
+                className="absolute top-2 right-4 dark:text-slate-700"
               />
             ) : (
               <FaEye
                 onClick={() => setPasswordEye(!passwordEye)}
-                className="absolute top-2 right-4"
+                className="absolute top-2 right-4 dark:text-slate-700"
               />
             )}
             {errors?.password && (
@@ -190,7 +192,7 @@ const Register = () => {
           </div>
         </form>
 
-        <p className="text-center ">
+        <p className="text-center dark:text-white">
           Already have an account?{" "}
           <Link to="/login" className="hover:underline">
             Login
@@ -198,7 +200,7 @@ const Register = () => {
         </p>
         <div className="flex justify-between items-center my-3">
           <div className="h-[1px] w-[40%] bg-slate-600"></div>
-          <div className="">or</div>
+          <div className="dark:text-white">or</div>
           <div className="h-[1px] w-[40%] bg-slate-600"></div>
         </div>
         <div className="mt-5">
@@ -209,7 +211,7 @@ const Register = () => {
             <FaGoogle className="inline-block mr-3 text-xl" />
             <span>Google</span>
           </button>
-          <button className="flex items-center justify-center text-white bg-slate-800 w-2/3 lg:w-full rounded-md mx-auto py-2 mt-3 transition-all hover:bg-slate-600">
+          <button className="flex items-center justify-center text-white dark:text-slate-700 bg-slate-800 dark:bg-white w-2/3 lg:w-full rounded-md mx-auto py-2 mt-3 transition-all hover:bg-slate-600 dark:hover:bg-gray-200">
             <FaGithub className="inline-block mr-3 text-xl" />{" "}
             <span>Github</span>
           </button>

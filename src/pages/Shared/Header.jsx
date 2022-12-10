@@ -4,9 +4,12 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider";
 import logoImg from "../../assets/img/logo.png";
 import getStoredUser from "../../sharedAPI/getStoredUser";
-import { FaCaretDown, FaCaretUp } from "react-icons/fa";
+import { FaCaretDown, FaCaretUp, FaMoon } from "react-icons/fa";
+import { HiSun } from "react-icons/hi";
+import { ThemeContext } from "../../contexts/ThemeProvider";
 
 const Header = () => {
+  const { toggleTheme, theme } = useContext(ThemeContext);
   const { user, logOut } = useContext(AuthContext);
   const navigate = useNavigate();
   const [storedUser, setStoredUser] = useState(null);
@@ -38,7 +41,7 @@ const Header = () => {
   }
 
   return (
-    <header className="flex flex-wrap sm:justify-start sm:flex-nowrap z-50 w-full bg-white text-sm py-4 dark:bg-gray-800">
+    <header className="flex flex-wrap sm:justify-start sm:flex-nowrap z-50 w-full text-sm py-4 dark:bg-transparent dark:text-cyan-500">
       <nav
         className="max-w-[85rem] w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between"
         aria-label="Global"
@@ -48,12 +51,19 @@ const Header = () => {
             <img className="h-10 w-10" src={logoImg} alt="" />
             <Link
               to="/"
-              className="flex-none text-2xl ml-4 uppercase font-bold sm:text-center dark:text-white"
+              className="flex-none text-2xl ml-4 uppercase font-bold sm:text-center dark:text-white "
             >
               Best Buy
             </Link>
           </div>
-          <div className="sm:hidden">
+          <div className="sm:hidden flex items-center">
+            <div className="mr-5">
+              {theme ? (
+                <HiSun onClick={toggleTheme} className="text-xl text-white" />
+              ) : (
+                <FaMoon onClick={toggleTheme} className="text-lg" />
+              )}
+            </div>
             <button
               type="button"
               className="hs-collapse-toggle p-2 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none transition-all text-sm dark:bg-gray-800 dark:hover:bg-slate-800 dark:text-gray-400 dark:hover:text-white"
@@ -92,7 +102,7 @@ const Header = () => {
           <div className="flex flex-col gap-5 mt-5 sm:flex-row sm:items-center sm:justify-end sm:mt-0 sm:pl-5">
             <NavLink
               to="/"
-              className="font-medium text-gray-600 hover:text-gray-400 dark:text-gray-400 dark:hover:text-gray-500"
+              className="font-medium text-gray-600 hover:text-gray-400 dark:text-white dark:hover:text-white"
               aria-current="page"
             >
               Home
@@ -103,7 +113,7 @@ const Header = () => {
               <button
                 onClick={handleDropDown}
                 type="button"
-                className="hs-collapse inline-block text-left md:hidden rounded-md font-medium bg-white text-gray-700 align-middle"
+                className="hs-collapse inline-block text-left md:hidden rounded-md font-medium bg-white dark:bg-slate-800 text-gray-700 dark:text-white align-middle"
               >
                 Dashboard{" "}
                 {showDd ? (
@@ -123,61 +133,73 @@ const Header = () => {
             >
               {storedUser?.role === "admin" ? (
                 <>
-                  <li className="text-left list-none font-semibold">
+                  <li className="text-left list-none font-semibold dark:text-white">
                     <NavLink
                       to="/dashboard/admin/allAdmin"
                       className={({ isActive }) =>
-                        isActive ? "text-[#3749BB] font-bold block" : undefined
+                        isActive
+                          ? "text-[#3749BB] dark:text-cyan-400 font-bold block"
+                          : undefined
                       }
                     >
                       Admin
                     </NavLink>
                   </li>
-                  <li className="text-left list-none font-semibold mb-3">
+                  <li className="text-left list-none font-semibold dark:text-white mb-3">
                     <NavLink
                       to="/dashboard/admin/allSellers"
                       className={({ isActive }) =>
-                        isActive ? "text-[#3749BB] font-bold block" : undefined
+                        isActive
+                          ? "text-[#3749BB] dark:text-cyan-400 font-bold block"
+                          : undefined
                       }
                     >
                       All Sellers
                     </NavLink>
                   </li>
-                  <li className="text-left list-none font-semibold mb-3">
+                  <li className="text-left list-none font-semibold dark:text-white mb-3">
                     <NavLink
                       to="/dashboard/admin/allBuyers"
                       className={({ isActive }) =>
-                        isActive ? "text-[#3749BB] font-bold block" : undefined
+                        isActive
+                          ? "text-[#3749BB] dark:text-cyan-400 font-bold block"
+                          : undefined
                       }
                     >
                       All Buyers
                     </NavLink>
                   </li>
-                  <li className="text-left list-none font-semibold">
+                  <li className="text-left list-none font-semibold dark:text-white">
                     <NavLink
                       to="/dashboard/admin/reportedItem"
                       className={({ isActive }) =>
-                        isActive ? "text-[#3749BB] font-bold block" : undefined
+                        isActive
+                          ? "text-[#3749BB] dark:text-cyan-400 font-bold block"
+                          : undefined
                       }
                     >
                       Reported Item
                     </NavLink>
                   </li>
-                  <li className="text-left list-none font-semibold mb-3">
+                  <li className="text-left list-none font-semibold dark:text-white mb-3">
                     <NavLink
                       to="/dashboard/Admin/addProduct"
                       className={({ isActive }) =>
-                        isActive ? "text-[#3749BB] font-bold block" : undefined
+                        isActive
+                          ? "text-[#3749BB] dark:text-cyan-400 font-bold block"
+                          : undefined
                       }
                     >
                       Add A Product
                     </NavLink>
                   </li>
-                  <li className="text-left list-none font-semibold">
+                  <li className="text-left list-none font-semibold dark:text-white">
                     <NavLink
                       to="/dashboard/Admin/myProducts"
                       className={({ isActive }) =>
-                        isActive ? "text-[#3749BB] font-bold block" : undefined
+                        isActive
+                          ? "text-[#3749BB] dark:text-cyan-400 font-bold block"
+                          : undefined
                       }
                     >
                       My products
@@ -186,31 +208,37 @@ const Header = () => {
                 </>
               ) : storedUser?.role === "seller" ? (
                 <>
-                  <li className="text-left list-none font-semibold">
+                  <li className="text-left list-none font-semibold dark:text-white">
                     <NavLink
                       to="/dashboard/addProduct"
                       className={({ isActive }) =>
-                        isActive ? "text-[#3749BB] font-bold block" : undefined
+                        isActive
+                          ? "text-[#3749BB] dark:text-cyan-400 font-bold block"
+                          : undefined
                       }
                     >
                       Add A Product
                     </NavLink>
                   </li>
-                  <li className="text-left list-none font-semibold mb-3">
+                  <li className="text-left list-none font-semibold dark:text-white mb-3">
                     <NavLink
                       to="/dashboard/myProducts"
                       className={({ isActive }) =>
-                        isActive ? "text-[#3749BB] font-bold block" : undefined
+                        isActive
+                          ? "text-[#3749BB] dark:text-cyan-400 font-bold block"
+                          : undefined
                       }
                     >
                       My Products
                     </NavLink>
                   </li>
-                  <li className="text-left list-none font-semibold mb-3">
+                  <li className="text-left list-none font-semibold dark:text-white mb-3">
                     <NavLink
                       to="/dashboard/myBuyers"
                       className={({ isActive }) =>
-                        isActive ? "text-[#3749BB] font-bold block" : undefined
+                        isActive
+                          ? "text-[#3749BB] dark:text-cyan-400 font-bold block"
+                          : undefined
                       }
                     >
                       My Buyers
@@ -219,21 +247,25 @@ const Header = () => {
                 </>
               ) : (
                 <>
-                  <li className="text-left list-none font-semibold">
+                  <li className="text-left list-none font-semibold dark:text-white">
                     <NavLink
                       to="/dashboard/myOrders"
                       className={({ isActive }) =>
-                        isActive ? "text-[#3749BB] font-bold block" : undefined
+                        isActive
+                          ? "text-[#3749BB] dark:text-cyan-400 font-bold block"
+                          : undefined
                       }
                     >
                       My orders
                     </NavLink>
                   </li>
-                  <li className="text-left list-none font-semibold mb-3">
+                  <li className="text-left list-none font-semibold dark:text-white mb-3">
                     <NavLink
                       to="/dashboard/wishlist"
                       className={({ isActive }) =>
-                        isActive ? "text-[#3749BB] font-bold block" : undefined
+                        isActive
+                          ? "text-[#3749BB] dark:text-cyan-400 font-bold block"
+                          : undefined
                       }
                     >
                       My wishlist
@@ -243,37 +275,40 @@ const Header = () => {
               )}
             </div>
 
-            <NavLink
-              to="/blog"
-              className="font-medium text-gray-600 hover:text-gray-400 dark:text-gray-400 dark:hover:text-gray-500"
-            >
-              Blog
-            </NavLink>
             {user ? (
               <>
                 <NavLink
                   to="/dashboard"
-                  className="hidden md:block font-medium text-gray-600 hover:text-gray-400 dark:text-gray-400 dark:hover:text-gray-500"
+                  className="hidden md:block font-medium text-gray-600 hover:text-gray-400 dark:text-white  dark:hover:text-white"
                 >
                   Dashboard
                 </NavLink>
                 <div>
                   <button
                     onClick={handleLogOut}
-                    className="font-medium text-gray-600 hover:text-gray-400 dark:text-gray-400 dark:hover:text-gray-500"
+                    className="font-medium text-gray-600 hover:text-gray-400 dark:text-white dark:hover:text-white"
                   >
                     Log out
                   </button>
                 </div>
               </>
             ) : (
-              <NavLink
-                to="/login"
-                className="font-medium text-gray-600 hover:text-gray-400 dark:text-gray-400 dark:hover:text-gray-500"
-              >
-                Log in
-              </NavLink>
+              <>
+                <NavLink
+                  to="/login"
+                  className="font-medium text-gray-600 hover:text-gray-400 dark:text-white  dark:hover:text-white"
+                >
+                  Log in
+                </NavLink>
+              </>
             )}
+            <div className="hidden md:block">
+              {theme ? (
+                <HiSun onClick={toggleTheme} className="text-xl text-white" />
+              ) : (
+                <FaMoon onClick={toggleTheme} className="text-lg" />
+              )}
+            </div>
           </div>
         </div>
       </nav>

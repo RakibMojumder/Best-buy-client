@@ -12,7 +12,7 @@ const Admin = () => {
     ["admin", user?.email],
     async () => {
       const res = await axios.get(
-        `https://best-buy-server.vercel.app/admin?email=${user?.email}`,
+        `http://localhost:5000/admin?email=${user?.email}`,
         {
           headers: {
             authorization: `Bearer ${localStorage.getItem("Best-buy-token")}`,
@@ -29,7 +29,7 @@ const Admin = () => {
 
   if (allAdmin?.length < 1) {
     return (
-      <h1 className="text-xl md:text-3xl uppercase py-6 font-bold text-center text-slate-700">
+      <h1 className="text-xl md:text-3xl uppercase py-6 font-bold text-center text-slate-700 dark:text-white">
         Admin list is empty
       </h1>
     );
@@ -37,11 +37,12 @@ const Admin = () => {
 
   return (
     <>
-      <h1 className="text-3xl uppercase py-6 font-bold text-center text-slate-700">
+      <h1 className="text-3xl uppercase py-6 font-bold text-center text-slate-700 dark:text-white">
         All Admins
       </h1>
       <Table>
         <Table.Head>
+          {/* <Table.HeadCell>Image</Table.HeadCell> */}
           <Table.HeadCell>Image</Table.HeadCell>
           <Table.HeadCell>Name</Table.HeadCell>
           <Table.HeadCell>Email</Table.HeadCell>

@@ -1,6 +1,6 @@
 
 const saveUserAndGetToken = async user => {
-    const res = await fetch('https://best-buy-server.vercel.app/users', {
+    const res = await fetch('http://localhost:5000/users', {
         method: "POST",
         headers: {
             'content-type': 'application/json'

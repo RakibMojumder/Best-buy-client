@@ -20,7 +20,7 @@ const AllBuyers = () => {
     refetch,
   } = useQuery(["allBuyers"], async () => {
     const res = await axios.get(
-      `https://best-buy-server.vercel.app/allBuyers?email=${user?.email}`,
+      `http://localhost:5000/allBuyers?email=${user?.email}`,
       {
         headers: {
           authorization: `Bearer ${localStorage.getItem("Best-buy-token")}`,
@@ -40,17 +40,14 @@ const AllBuyers = () => {
   }
 
   const handleDeleteBuyer = () => {
-    fetch(
-      `https://best-buy-server.vercel.app/deleteUsers?email=${user?.email}`,
-      {
-        method: "POST",
-        headers: {
-          authorization: `Bearer ${localStorage.getItem("Best-buy-token")}`,
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(deletedBuyer),
-      }
-    )
+    fetch(`http://localhost:5000/deleteUsers?email=${user?.email}`, {
+      method: "POST",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("Best-buy-token")}`,
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(deletedBuyer),
+    })
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
@@ -63,7 +60,7 @@ const AllBuyers = () => {
 
   const handleVerified = (seller) => {
     setLoading(true);
-    fetch(`https://best-buy-server.vercel.app/verified/${seller._id}`, {
+    fetch(`http://localhost:5000/verified/${seller._id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -79,7 +76,7 @@ const AllBuyers = () => {
   };
 
   const handleMakeAdmin = (buyer) => {
-    fetch(`https://best-buy-server.vercel.app/allBuyers`, {
+    fetch(`http://localhost:5000/allBuyers`, {
       method: "PUT",
       headers: {
         authorization: `Bearer ${localStorage.getItem("Best-buy-token")}`,
@@ -102,7 +99,7 @@ const AllBuyers = () => {
 
   if (allBuyers?.length < 1) {
     return (
-      <h1 className="text-xl md:text-3xl uppercase py-6 font-bold text-center text-slate-700">
+      <h1 className="text-xl md:text-3xl uppercase py-6 font-bold text-center text-slate-700 dark:text-white">
         No Buyer for you
       </h1>
     );
@@ -110,7 +107,7 @@ const AllBuyers = () => {
 
   return (
     <>
-      <h1 className="text-3xl uppercase py-6 font-bold text-center text-slate-700">
+      <h1 className="text-3xl uppercase py-6 font-bold text-center text-slate-700 dark:text-white">
         All Buyers
       </h1>
       <Table>

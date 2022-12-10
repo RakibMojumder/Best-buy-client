@@ -1,6 +1,5 @@
 import { Carousel } from "flowbite-react";
 import React from "react";
-import "./Styles/styles.css";
 import imgOne from "../../assets/banner-img/dell-SGY0LIfTKZ4-unsplash.jpg";
 import imgTwo from "../../assets/banner-img/domenico-loia-hGV2TfOh0ns-unsplash.jpg";
 import imgThree from "../../assets/banner-img/kari-shea-1SAnrIxw5OY-unsplash.jpg";

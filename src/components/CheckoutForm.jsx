@@ -12,18 +12,19 @@ const CheckoutForm = ({ bookedOrder, refetch, closeModal }) => {
   const [clientSecret, setClientSecret] = useState("");
   const [processing, setProcessing] = useState(false);
 
+  console.log(bookedOrder);
+
   useEffect(() => {
-    fetch(
-      `https://best-buy-server.vercel.app/create-payment-intent?email=${user?.email}`,
-      {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-          authorization: `Bearer ${localStorage.getItem("Best-buy-token")}`,
-        },
-        body: JSON.stringify({ price: bookedOrder.productPrice }),
-      }
-    )
+    fetch(`http://localhost:5000/create-payment-intent?email=${user?.email}`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("Best-buy-token")}`,
+      },
+      body: JSON.stringify({
+        price: bookedOrder.productPrice || bookedOrder.originalPrice,
+      }),
+    })
       .then((res) => res.json())
       .then((data) => {
         setClientSecret(data.clientSecret);
@@ -74,17 +75,17 @@ const CheckoutForm = ({ bookedOrder, refetch, closeModal }) => {
 
     if (paymentIntent.status === "succeeded") {
       const payment = {
-        price: bookedOrder.productPrice,
-        customerName: bookedOrder.customerName,
+        price: bookedOrder.productPrice || bookedOrder.originalPrice,
+        customerName: bookedOrder.customerName || user?.displayName,
         sellerEmail: bookedOrder.sellerEmail,
-        customerEmail: bookedOrder.customerEmail,
+        customerEmail: bookedOrder.customerEmail || user?.email,
         transactionId: paymentIntent.id,
         bookingId: bookedOrder._id,
-        productId: bookedOrder.productId,
-        productName: bookedOrder.productName,
+        productId: bookedOrder.productId || bookedOrder._id,
+        productName: bookedOrder.productName || bookedOrder.name,
       };
 
-      fetch(`https://best-buy-server.vercel.app/payment`, {
+      fetch(`http://localhost:5000/payment`, {
         method: "POST",
         headers: {
           authorization: `Bearer ${localStorage.getItem("Best-buy-token")}`,

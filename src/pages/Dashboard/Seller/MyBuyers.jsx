@@ -11,7 +11,7 @@ const MyBuyers = () => {
     ["myBuyers", user?.email],
     async () => {
       const res = await axios.get(
-        `https://best-buy-server.vercel.app/myBuyers?email=${user?.email}`,
+        `http://localhost:5000/myBuyers?email=${user?.email}`,
         {
           headers: {
             authorization: `Bearer ${localStorage.getItem("Best-buy-token")}`,
@@ -28,7 +28,7 @@ const MyBuyers = () => {
 
   if (myBuyers.length < 1) {
     return (
-      <h1 className="text-xl md:text-2xl text-slate-700 py-6 text-center uppercase font-bold">
+      <h1 className="text-xl md:text-2xl text-slate-700 dark:text-white py-6 text-center uppercase font-bold">
         You don't have any buyer's yet
       </h1>
     );
@@ -37,7 +37,7 @@ const MyBuyers = () => {
   return (
     <div className="pt-6">
       <h1
-        className="text-xl text-slate-700 font-bold
+        className="text-xl text-slate-700 dark:text-white font-bold
        my-4"
       >
         My buyers

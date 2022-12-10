@@ -1,5 +1,3 @@
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Table } from "flowbite-react";
@@ -7,8 +5,6 @@ import React, { useContext, useState } from "react";
 import Loader from "../../../components/Loader";
 import WishListPaymentModal from "../../../components/WishListPaymentModal";
 import { AuthContext } from "../../../contexts/AuthProvider";
-
-const stripePromise = loadStripe(process.env.REACT_APP_stripe_pk);
 
 const MyWishList = () => {
   const { user } = useContext(AuthContext);
@@ -20,7 +16,7 @@ const MyWishList = () => {
     refetch,
   } = useQuery(["wishlist", user?.email], async () => {
     const res = await axios.get(
-      `https://best-buy-server.vercel.app/wishlist?email=${user?.email}`,
+      `http://localhost:5000/wishlist?email=${user?.email}`,
       {
         headers: {
           authorization: `Bearer ${localStorage.getItem("Best-buy-token")}`,
@@ -50,7 +46,7 @@ const MyWishList = () => {
 
   if (wishList?.length === 0) {
     return (
-      <h1 className="text-xl md:text-2xl text-slate-700 font-bold py-6 text-center uppercase">
+      <h1 className="text-xl md:text-2xl text-slate-700 dark:text-white font-bold py-6 text-center uppercase">
         Your wish list is empty
       </h1>
     );
@@ -58,7 +54,7 @@ const MyWishList = () => {
 
   return (
     <div>
-      <h1 className="text-2xl text-slate-700 font-bold text-center py-5 uppercase">
+      <h1 className="text-2xl text-slate-700 dark:text-white font-bold text-center py-5 uppercase">
         Your Wish List
       </h1>
 
@@ -100,14 +96,12 @@ const MyWishList = () => {
           ))}
         </Table.Body>
       </Table>
-      <Elements stripe={stripePromise}>
-        <WishListPaymentModal
-          isOpen={isOpen}
-          closeModal={closeModal}
-          order={wishProduct}
-          refetch={refetch}
-        />
-      </Elements>
+      <WishListPaymentModal
+        isOpen={isOpen}
+        closeModal={closeModal}
+        order={wishProduct}
+        refetch={refetch}
+      />
     </div>
   );
 };

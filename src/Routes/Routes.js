@@ -2,8 +2,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../layout/Main";
 import ErrorPage from "../pages/Shared/ErrorPage";
-import Home from "../pages/Home/Home";
-import Products from "../pages/Products/Products";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import PrivateRoute from "./PrivateRoute";
@@ -20,7 +18,10 @@ import MyOrders from "../pages/Dashboard/Buyer/MyOrders";
 import MyWishList from "../pages/Dashboard/Buyer/MyWishList";
 import SellerRoute from "./SellerRoute";
 import Admin from "../pages/Dashboard/Admin/Admin";
-import Blog from "../pages/Blog";
+import ProductDetails from "../pages/Home/Products/ProductDetails";
+import HomeLayout from "../layout/HomeLayout";
+import Product from "../pages/Home/Products/Product";
+import CategoriesProduct from "../pages/Home/Products/CategoriesProduct";
 
 const router = createBrowserRouter([
     {
@@ -30,11 +31,21 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/',
-                element: <Home />
+                element: <HomeLayout />,
+                children: [
+                    {
+                        path: '/',
+                        element: <Product />
+                    },
+                    {
+                        path: '/category/:brand',
+                        element: <CategoriesProduct />
+                    }
+                ]
             },
             {
-                path: '/category/:id',
-                element: <PrivateRoute><Products /></PrivateRoute>
+                path: '/product/:id',
+                element: <PrivateRoute><ProductDetails /></PrivateRoute>
             },
             {
                 path: '/login',
@@ -44,10 +55,6 @@ const router = createBrowserRouter([
                 path: '/register',
                 element: <Register />
             },
-            {
-                path: '/blog',
-                element: <Blog />
-            }
         ]
     },
     {
