@@ -13,14 +13,17 @@ const WishListCheckoutForm = ({ closeModal, order, refetch }) => {
   const [processing, setProcessing] = useState(false);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/create-payment-intent?email=${user?.email}`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-        authorization: `Bearer ${localStorage.getItem("Best-buy-token")}`,
-      },
-      body: JSON.stringify({ price: order.resalePrice }),
-    })
+    fetch(
+      `https://best-buy-serever.vercel.app/create-payment-intent?email=${user?.email}`,
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("Best-buy-token")}`,
+        },
+        body: JSON.stringify({ price: order.resalePrice }),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         setClientSecret(data.clientSecret);
@@ -80,7 +83,7 @@ const WishListCheckoutForm = ({ closeModal, order, refetch }) => {
         productName: order.name,
       };
 
-      fetch(`http://localhost:5000/wishListPayment`, {
+      fetch(`https://best-buy-serever.vercel.app/wishListPayment`, {
         method: "POST",
         headers: {
           authorization: `Bearer ${localStorage.getItem("Best-buy-token")}`,

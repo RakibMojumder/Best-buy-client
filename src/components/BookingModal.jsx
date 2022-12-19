@@ -26,7 +26,7 @@ const BookingModal = ({ isOpen, closeModal, booking, refetch }) => {
       productImg: img,
     };
 
-    fetch("http://localhost:5000/bookings", {
+    fetch("https://best-buy-serever.vercel.app/bookings", {
       method: "POST",
       headers: {
         "content-type": "application/json",

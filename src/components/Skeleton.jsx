@@ -2,8 +2,8 @@ import React from "react";
 
 const Skeleton = () => {
   return (
-    <div className="grid grid-cols-3 gap-3 mt-3">
-      {[...Array(6).keys()].map((value, index) => (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-3">
+      {[...Array(6).keys()].map((index) => (
         <div
           key={index}
           className="flex flex-col rounded shadow-md animate-pulse h-96"

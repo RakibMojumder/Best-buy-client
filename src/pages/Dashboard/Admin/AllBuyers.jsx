@@ -20,7 +20,7 @@ const AllBuyers = () => {
     refetch,
   } = useQuery(["allBuyers"], async () => {
     const res = await axios.get(
-      `http://localhost:5000/allBuyers?email=${user?.email}`,
+      `https://best-buy-serever.vercel.app/allBuyers?email=${user?.email}`,
       {
         headers: {
           authorization: `Bearer ${localStorage.getItem("Best-buy-token")}`,
@@ -40,14 +40,17 @@ const AllBuyers = () => {
   }
 
   const handleDeleteBuyer = () => {
-    fetch(`http://localhost:5000/deleteUsers?email=${user?.email}`, {
-      method: "POST",
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("Best-buy-token")}`,
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(deletedBuyer),
-    })
+    fetch(
+      `https://best-buy-serever.vercel.app/deleteUsers?email=${user?.email}`,
+      {
+        method: "POST",
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("Best-buy-token")}`,
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(deletedBuyer),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
@@ -60,7 +63,7 @@ const AllBuyers = () => {
 
   const handleVerified = (seller) => {
     setLoading(true);
-    fetch(`http://localhost:5000/verified/${seller._id}`, {
+    fetch(`https://best-buy-serever.vercel.app/verified/${seller._id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -76,7 +79,7 @@ const AllBuyers = () => {
   };
 
   const handleMakeAdmin = (buyer) => {
-    fetch(`http://localhost:5000/allBuyers`, {
+    fetch(`https://best-buy-serever.vercel.app/allBuyers`, {
       method: "PUT",
       headers: {
         authorization: `Bearer ${localStorage.getItem("Best-buy-token")}`,

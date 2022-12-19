@@ -93,7 +93,7 @@ const Login = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="input-field relative mb-6">
             <input
-              className="border w-full py-1 pl-5 focus:outline-none dark:text-slate-800"
+              className={`border w-full py-1 pl-5 focus:outline-none dark:text-slate-800`}
               type="email"
               placeholder="Email"
               {...register("email", { required: "Email is required" })}

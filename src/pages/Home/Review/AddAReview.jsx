@@ -25,7 +25,7 @@ const AddAReview = ({ productId, refetch }) => {
 
     // Post review to database
     const res = await axios.post(
-      "http://localhost:5000/reviews",
+      "https://best-buy-serever.vercel.app/reviews",
       reviewDetails
     );
     if (res.data.success) {

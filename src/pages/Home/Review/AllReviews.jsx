@@ -11,7 +11,9 @@ const AllReviews = ({ id, productId }) => {
     isLoading,
     refetch,
   } = useQuery(["reviews", id], async () => {
-    const res = await axios.get(`http://localhost:5000/reviews/${id}`);
+    const res = await axios.get(
+      `https://best-buy-serever.vercel.app/reviews/${id}`
+    );
     return res.data.data;
   });
 

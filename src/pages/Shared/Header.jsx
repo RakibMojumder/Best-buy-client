@@ -59,9 +59,9 @@ const Header = () => {
           <div className="sm:hidden flex items-center">
             <div className="mr-5">
               {theme ? (
-                <HiSun onClick={toggleTheme} className="text-xl text-white" />
-              ) : (
                 <FaMoon onClick={toggleTheme} className="text-lg" />
+              ) : (
+                <HiSun onClick={toggleTheme} className="text-xl text-white" />
               )}
             </div>
             <button
@@ -304,9 +304,9 @@ const Header = () => {
             )}
             <div className="hidden md:block">
               {theme ? (
-                <HiSun onClick={toggleTheme} className="text-xl text-white" />
-              ) : (
                 <FaMoon onClick={toggleTheme} className="text-lg" />
+              ) : (
+                <HiSun onClick={toggleTheme} className="text-xl text-white" />
               )}
             </div>
           </div>

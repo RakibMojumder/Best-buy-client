@@ -49,7 +49,7 @@ const AddProductForm = () => {
             mobile: data.mobile,
           };
 
-          fetch("http://localhost:5000/products", {
+          fetch("https://best-buy-serever.vercel.app/products", {
             method: "POST",
             headers: {
               "content-type": "application/json",
@@ -70,7 +70,7 @@ const AddProductForm = () => {
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <div className="input-field">
         <input
-          className="border w-full py-1 pl-5 rounded-md focus:outline-none"
+          className="border w-full py-1 pl-5 rounded-md focus:outline-none text-slate-800"
           type="text"
           placeholder="Product Name"
           {...register("pName", { required: "Product Name is required" })}
@@ -81,7 +81,7 @@ const AddProductForm = () => {
       </div>
       <div className="input-field">
         <select
-          className="w-full border py-2 rounded-md pl-3"
+          className="w-full border py-2 rounded-md pl-3 text-slate-800"
           {...register("pCategory", {
             required: "Product category is required",
           })}
@@ -105,7 +105,7 @@ const AddProductForm = () => {
       <div className="input-field">
         <textarea
           placeholder="Product Configuration"
-          className="w-full h-20 pl-4 border rounded-md"
+          className="w-full h-20 pl-4 border rounded-md text-slate-800"
           {...register("configuration", {
             required: "Product Configuration is required",
           })}
@@ -120,7 +120,7 @@ const AddProductForm = () => {
       <div className="flex justify-between gap-8">
         <div className="input-field w-full">
           <input
-            className="border w-full py-1 pl-5 rounded-md focus:outline-none"
+            className="border w-full py-1 pl-5 rounded-md focus:outline-none text-slate-800"
             type="text"
             placeholder="Product Original Price"
             {...register("originalPrice", {
@@ -135,7 +135,7 @@ const AddProductForm = () => {
         </div>
         <div className="input-field w-full">
           <input
-            className="border w-full py-1 pl-5 rounded-md focus:outline-none"
+            className="border w-full py-1 pl-5 rounded-md focus:outline-none text-slate-800"
             type="text"
             placeholder="Product Resale Price"
             {...register("resalePrice", {
@@ -153,7 +153,7 @@ const AddProductForm = () => {
       <div className="flex justify-between gap-8">
         <div className="input-field w-full">
           <input
-            className="border w-full py-1 pl-5 rounded-md focus:outline-none"
+            className="border w-full py-1 pl-5 rounded-md focus:outline-none text-slate-800"
             type="text"
             placeholder="Product Used Time"
             {...register("usedTime", {
@@ -166,7 +166,7 @@ const AddProductForm = () => {
         </div>
         <div className="input-field w-full">
           <input
-            className="border w-full py-1 pl-5 rounded-md focus:outline-none"
+            className="border w-full py-1 pl-5 rounded-md focus:outline-none text-slate-800"
             type="text"
             placeholder="Location"
             {...register("location", {
@@ -182,7 +182,7 @@ const AddProductForm = () => {
       <div className="flex justify-between gap-8">
         <div className="input-field w-full">
           <select
-            className="w-full border py-1 rounded-md pl-3"
+            className="w-full border py-1 rounded-md pl-3 text-slate-800"
             {...register("pCondition", {
               required: "Product condition is required",
             })}
@@ -200,7 +200,7 @@ const AddProductForm = () => {
         </div>
         <div className="input-field w-full">
           <input
-            className="border w-full py-1 pl-5 rounded-md focus:outline-none"
+            className="border w-full py-1 pl-5 rounded-md focus:outline-none text-slate-800"
             type="text"
             placeholder="Mobile"
             {...register("mobile", {

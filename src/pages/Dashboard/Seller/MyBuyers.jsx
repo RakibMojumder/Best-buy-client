@@ -11,7 +11,7 @@ const MyBuyers = () => {
     ["myBuyers", user?.email],
     async () => {
       const res = await axios.get(
-        `http://localhost:5000/myBuyers?email=${user?.email}`,
+        `https://best-buy-serever.vercel.app/myBuyers?email=${user?.email}`,
         {
           headers: {
             authorization: `Bearer ${localStorage.getItem("Best-buy-token")}`,

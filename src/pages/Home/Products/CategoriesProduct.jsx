@@ -10,7 +10,9 @@ const CategoriesProduct = () => {
   const { data: products, isLoading } = useQuery(
     ["products", brand],
     async () => {
-      const res = await axios.get(`http://localhost:5000/products/${brand}`);
+      const res = await axios.get(
+        `https://best-buy-serever.vercel.app/products/${brand}`
+      );
       return res.data.data;
     }
   );

@@ -15,16 +15,19 @@ const CheckoutForm = ({ bookedOrder, refetch, closeModal }) => {
   console.log(bookedOrder);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/create-payment-intent?email=${user?.email}`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-        authorization: `Bearer ${localStorage.getItem("Best-buy-token")}`,
-      },
-      body: JSON.stringify({
-        price: bookedOrder.productPrice || bookedOrder.originalPrice,
-      }),
-    })
+    fetch(
+      `https://best-buy-serever.vercel.app/create-payment-intent?email=${user?.email}`,
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("Best-buy-token")}`,
+        },
+        body: JSON.stringify({
+          price: bookedOrder.productPrice || bookedOrder.originalPrice,
+        }),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         setClientSecret(data.clientSecret);
@@ -85,7 +88,7 @@ const CheckoutForm = ({ bookedOrder, refetch, closeModal }) => {
         productName: bookedOrder.productName || bookedOrder.name,
       };
 
-      fetch(`http://localhost:5000/payment`, {
+      fetch(`https://best-buy-serever.vercel.app/payment`, {
         method: "POST",
         headers: {
           authorization: `Bearer ${localStorage.getItem("Best-buy-token")}`,

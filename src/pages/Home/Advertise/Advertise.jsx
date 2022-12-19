@@ -14,13 +14,11 @@ const Advertise = () => {
     isLoading,
     refetch,
   } = useQuery(["advertise"], async () => {
-    const res = await axios.get("http://localhost:5000/advertise");
+    const res = await axios.get(
+      "https://best-buy-serever.vercel.app/advertise"
+    );
     return res.data.data;
   });
-
-  if (isLoading) {
-    return <Loader />;
-  }
 
   function closeModal() {
     setIsOpen(!isOpen);
@@ -31,28 +29,34 @@ const Advertise = () => {
   }
 
   if (isLoading) {
-    return;
+    return <Loader />;
   }
 
   return (
-    <div>
-      <Carousel slideInterval={5000}>
-        {advertise.map((product) => (
-          <AdvertiseCart
-            key={product._id}
-            product={product}
-            openModal={openModal}
-            setBooking={setBooking}
+    <>
+      {advertise ? (
+        <>
+          <Carousel slideInterval={5000}>
+            {advertise?.map((product) => (
+              <AdvertiseCart
+                key={product._id}
+                product={product}
+                openModal={openModal}
+                setBooking={setBooking}
+              />
+            ))}
+          </Carousel>
+          <BookingModal
+            isOpen={isOpen}
+            closeModal={closeModal}
+            booking={booking}
+            refetch={refetch}
           />
-        ))}
-      </Carousel>
-      <BookingModal
-        isOpen={isOpen}
-        closeModal={closeModal}
-        booking={booking}
-        refetch={refetch}
-      />
-    </div>
+        </>
+      ) : (
+        ""
+      )}
+    </>
   );
 };
 

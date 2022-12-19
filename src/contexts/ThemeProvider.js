@@ -4,11 +4,11 @@ import React, { createContext, useEffect, useState } from 'react';
 export const ThemeContext = createContext();
 
 const ThemeProvider = ({ children }) => {
-    const [theme, setTheme] = useState(true);
+    const [theme, setTheme] = useState(false);
 
     useEffect(() => {
         setTheme(JSON.parse(localStorage.getItem('Theme')));
-        if (theme) {
+        if (!theme) {
             document.documentElement.classList.add("dark");
             document.documentElement.classList.remove("light");
         } else {

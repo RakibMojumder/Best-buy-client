@@ -19,7 +19,7 @@ const MyProducts = () => {
     refetch,
   } = useQuery(["myProducts", user?.email], async () => {
     const res = await axios.get(
-      `http://localhost:5000/myProducts?email=${user?.email}`
+      `https://best-buy-serever.vercel.app/myProducts?email=${user?.email}`
     );
     return res.data.data;
   });
@@ -38,7 +38,7 @@ const MyProducts = () => {
   }
 
   const handleDeleteProduct = () => {
-    fetch(`http://localhost:5000/myProducts/${productId}`, {
+    fetch(`https://best-buy-serever.vercel.app/myProducts/${productId}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -52,7 +52,7 @@ const MyProducts = () => {
   };
 
   const handleAds = (product) => {
-    fetch(`http://localhost:5000/advertise`, {
+    fetch(`https://best-buy-serever.vercel.app/advertise`, {
       method: "POST",
       headers: {
         "content-type": "application/json",

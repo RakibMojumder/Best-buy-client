@@ -19,7 +19,9 @@ const ProductDetails = () => {
   const [booking, setBooking] = useState([]);
   const [loading, setLoading] = useState(false);
   const { data: product, isLoading } = useQuery(["product", id], async () => {
-    const res = await axios.get(`http://localhost:5000/product/${id}`);
+    const res = await axios.get(
+      `https://best-buy-serever.vercel.app/product/${id}`
+    );
     return res.data.data;
   });
 

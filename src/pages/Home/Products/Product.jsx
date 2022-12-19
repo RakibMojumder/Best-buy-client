@@ -1,26 +1,22 @@
 import React, { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
+import SingleSkeleton from "../../../components/SingleSkeleton";
 import Skeleton from "../../../components/Skeleton";
 import ProductCart from "./ProductCart";
 
 const Product = () => {
   const [totalProducts, setTotalProducts] = useState(0);
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
   const page = Math.ceil(products.length / 9);
 
-  // const { data: products, isLoading } = useQuery(["products"], async () => {
-  //   const res = await axios.get(`http://localhost:5000/products?page=0&size=9`);
-  //   const { products, productsCount } = res.data.data;
-  //   setTotalProducts(productsCount);
-  //   setAllProducts(products);
-  //   return products;
-  // });
-
   const getProducts = async () => {
-    fetch(`http://localhost:5000/products?page=${page}&size=9`)
+    setLoading(true);
+    fetch(`https://best-buy-serever.vercel.app/products?page=${page}&size=9`)
       .then((res) => res.json())
       .then((data) => {
         setProducts([...products, ...data.data.products]);
+        setLoading(false);
         setTotalProducts(data.data.productsCount);
       });
   };
@@ -30,7 +26,7 @@ const Product = () => {
   }, []);
 
   const fetchMoreData = () => {
-    fetch(`http://localhost:5000/products?page=${page}&size=9`)
+    fetch(`https://best-buy-serever.vercel.app/products?page=${page}&size=9`)
       .then((res) => res.json())
       .then((data) => {
         setProducts([...products, ...data.data.products]);
@@ -69,10 +65,14 @@ const Product = () => {
             </p>
           }
         >
-          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3">
-            {products?.map((product) => (
-              <ProductCart key={product._id} product={product} />
-            ))}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+            {loading
+              ? [...Array(3).keys()].map((index) => (
+                  <SingleSkeleton key={index} />
+                ))
+              : products?.map((product) => (
+                  <ProductCart key={product._id} product={product} />
+                ))}
           </div>
         </InfiniteScroll>
       </div>
